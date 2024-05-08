@@ -6,22 +6,25 @@
   name="robot_base" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:property name="radius" value="0.055" />
   <xacro:property name="length" value="0.05" />
+  <xacro:property name="wheel_orientation" value="1 0 0" />
+  <xacro:property name="collision_transform" value="0 1.57079632679 1.57079632679" />
+
 
   <link
     name="base_link">
     <inertial>
       <origin
-        xyz="-0.00083266 0.011121 0.0039376"
+        xyz="-0.0111443854086884 -0.000831975562567948 0.00395208351304286"
         rpy="0 0 0" />
       <mass
-        value="2.5772" />
+        value="2.57903452705291" />
       <inertia
-        ixx="0.013196"
-        ixy="4.1344E-06"
-        ixz="8.4555E-07"
-        iyy="0.010087"
-        iyz="-0.00024042"
-        izz="0.020292" />
+        ixx="0.010097194230352"
+        ixy="-4.37392111784297E-06"
+        ixz="0.000240822381205553"
+        iyy="0.0132093250149844"
+        iyz="7.47840581370496E-07"
+        izz="0.020314109789297" />
     </inertial>
     <visual>
       <origin
@@ -34,7 +37,7 @@
       <material
         name="">
         <color
-          rgba="0.52941 0.54902 0.54902 1" />
+          rgba="0.529411764705882 0.549019607843137 0.549019607843137 1" />
       </material>
     </visual>
     <collision>
@@ -51,17 +54,17 @@
     name="front_left_wheel_link">
     <inertial>
       <origin
-        xyz="6.4107E-05 2.9249E-10 -1.1211E-10"
+        xyz="-1.12107309546694E-10 6.41072041116242E-05 2.92491794673388E-10"
         rpy="0 0 0" />
       <mass
-        value="0.26661" />
+        value="0.266614983225976" />
       <inertia
-        ixx="9.3196E-05"
-        ixy="-9.6888E-15"
-        ixz="-1.226E-14"
-        iyy="8.0546E-05"
-        iyz="1.9673E-15"
-        izz="8.0546E-05" />
+        ixx="8.05457942774813E-05"
+        ixy="-1.2260463258983E-14"
+        ixz="1.96734401516725E-15"
+        iyy="9.31956038960016E-05"
+        iyz="-9.68885005345804E-15"
+        izz="8.05457942705124E-05" />
     </inertial>
     <visual>
       <origin
@@ -74,13 +77,13 @@
       <material
         name="">
         <color
-          rgba="0.79216 0.81961 0.93333 1" />
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
     <collision>
       <origin
         xyz="0 0 0"
-        rpy="0 1.56 0" />
+        rpy="${collision_transform}" />
       <geometry>
         <cylinder radius="${radius}" length="${length}" />
         <!-- <mesh filename="package://mirte_description/meshes/front_left_wheel_link.STL" /> -->
@@ -91,30 +94,30 @@
     name="front_left_wheel_joint"
     type="continuous">
     <origin
-      xyz="0.128 -0.085 -0.0455"
-      rpy="1.5708 0 0" />
+      xyz="0.085 0.128 -0.0455"
+      rpy="0 0 0" />
     <parent
       link="base_link" />
     <child
       link="front_left_wheel_link" />
     <axis
-      xyz="-1 0 0" />
+      xyz="0 -1 0" />
   </joint>
   <link
     name="front_right_wheel_link">
     <inertial>
       <origin
-        xyz="6.4107E-05 2.1252E-10 -1.9E-10"
+        xyz="-1.90001653299632E-10 6.41072041136781E-05 2.12521250597675E-10"
         rpy="0 0 0" />
       <mass
-        value="0.26661" />
+        value="0.266614983226051" />
       <inertia
-        ixx="9.3196E-05"
-        ixy="-9.6011E-15"
-        ixz="-7.6917E-14"
-        iyy="8.0546E-05"
-        iyz="-4.5866E-15"
-        izz="8.0546E-05" />
+        ixx="8.05457942757E-05"
+        ixy="-7.6916734798387E-14"
+        ixz="-4.58661925987117E-15"
+        iyy="9.31956038947894E-05"
+        iyz="-9.60110972210022E-15"
+        izz="8.05457942710755E-05" />
     </inertial>
     <visual>
       <origin
@@ -127,13 +130,13 @@
       <material
         name="">
         <color
-          rgba="0.79216 0.81961 0.93333 1" />
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
     <collision>
       <origin
         xyz="0 0 0"
-        rpy="0 1.56 0" />
+        rpy="${collision_transform}" />
       <geometry>
         <cylinder radius="${radius}" length="${length}" />
         <!-- <mesh filename="package://mirte_description/meshes/front_right_wheel_link.STL" /> -->
@@ -144,30 +147,30 @@
     name="front_right_wheel_joint"
     type="continuous">
     <origin
-      xyz="-0.128 -0.085 -0.0455"
-      rpy="1.5708 0 0" />
+      xyz="0.085 -0.128 -0.0455"
+      rpy="0 0 0" />
     <parent
       link="base_link" />
     <child
       link="front_right_wheel_link" />
     <axis
-      xyz="-1 0 0" />
+      xyz="0 -1 0" />
   </joint>
   <link
     name="rear_left_wheel_link">
     <inertial>
       <origin
-        xyz="6.4107E-05 2.1252E-10 -1.9E-10"
+        xyz="-1.90001639421844E-10 6.41072041137336E-05 2.12521319986614E-10"
         rpy="0 0 0" />
       <mass
-        value="0.26661" />
+        value="0.266614983226051" />
       <inertia
-        ixx="9.3196E-05"
-        ixy="-9.5931E-15"
-        ixz="-7.6904E-14"
-        iyy="8.0546E-05"
-        iyz="-4.574E-15"
-        izz="8.0546E-05" />
+        ixx="8.05457942756754E-05"
+        ixy="-7.69042802358516E-14"
+        ixz="-4.57395491293476E-15"
+        iyy="9.31956038947576E-05"
+        iyz="-9.59312925333487E-15"
+        izz="8.05457942710471E-05" />
     </inertial>
     <visual>
       <origin
@@ -180,13 +183,13 @@
       <material
         name="">
         <color
-          rgba="0.79216 0.81961 0.93333 1" />
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
     <collision>
       <origin
         xyz="0 0 0"
-        rpy="0 1.56 0" />
+        rpy="${collision_transform}" />
       <geometry>
         <cylinder radius="${radius}" length="${length}" />
         <!-- <mesh filename="package://mirte_description/meshes/rear_left_wheel_link.STL" /> -->
@@ -197,30 +200,30 @@
     name="rear_left_wheel_joint"
     type="continuous">
     <origin
-      xyz="0.128 0.085 -0.0455"
-      rpy="1.5708 0 0" />
+      xyz="-0.085 0.128 -0.0455"
+      rpy="0 0 0" />
     <parent
       link="base_link" />
     <child
       link="rear_left_wheel_link" />
     <axis
-      xyz="-1 0 0" />
+      xyz="0 -1 0" />
   </joint>
   <link
     name="rear_right_wheel_link">
     <inertial>
       <origin
-        xyz="6.41072041088764E-05 2.94731093697376E-10 -1.00091462895691E-10"
+        xyz="-1.00091421262327E-10 6.41072041089319E-05 2.94731093697376E-10"
         rpy="0 0 0" />
       <mass
         value="0.26661498322592" />
       <inertia
-        ixx="9.3195603896201E-05"
-        ixy="-1.7571315886241E-14"
-        ixz="-1.26520007319569E-14"
-        iyy="8.05457942703286E-05"
-        iyz="4.82091468818614E-17"
-        izz="8.05457942778204E-05" />
+        ixx="8.05457942778204E-05"
+        ixy="-1.2652000339339E-14"
+        ixz="4.82096941386991E-17"
+        iyy="9.31956038962011E-05"
+        iyz="-1.75713136841005E-14"
+        izz="8.05457942703287E-05" />
     </inertial>
     <visual>
       <origin
@@ -239,7 +242,7 @@
     <collision>
       <origin
         xyz="0 0 0"
-        rpy="0 1.56 0" />
+        rpy="${collision_transform}" />
       <geometry>
         <cylinder radius="${radius}" length="${length}" />
         <!-- <mesh filename="package://mirte_description/meshes/rear_right_wheel_link.STL" /> -->
@@ -250,30 +253,30 @@
     name="rear_right_wheel_joint"
     type="continuous">
     <origin
-      xyz="-0.128 0.085 -0.0455"
-      rpy="1.5708 0 0" />
+      xyz="-0.085 -0.128 -0.0455"
+      rpy="0 0 0" />
     <parent
       link="base_link" />
     <child
       link="rear_right_wheel_link" />
     <axis
-      xyz="-1 0 0" />
+      xyz="0 -1 0" />
   </joint>
   <link
     name="camera_link">
     <inertial>
       <origin
-        xyz="0.00132191548038025 -0.000392007221992376 -0.0222605569788096"
+        xyz="-0.0222605572085065 0.00132191545179521 -0.000392007230496989"
         rpy="0 0 0" />
       <mass
-        value="0.188133920336356" />
+        value="0.188133922243291" />
       <inertia
-        ixx="6.91459456639027E-05"
-        ixy="2.54332844338707E-06"
-        ixz="1.91366259472817E-05"
-        iyy="0.000449074814854817"
-        iyz="-4.27256160719624E-06"
-        izz="0.00040830401695793" />
+        ixx="0.000408304025984058"
+        ixy="1.91366258287762E-05"
+        ixz="-4.27256164755698E-06"
+        iyy="6.91459464023262E-05"
+        iyz="2.54332903063166E-06"
+        izz="0.00044907482518408" />
     </inertial>
     <visual>
       <origin
@@ -303,8 +306,8 @@
     name="camera_joint"
     type="fixed">
     <origin
-      xyz="0 -0.14666 0.0427"
-      rpy="1.5708 0 0" />
+      xyz="0.14666 0 0.0427"
+      rpy="0 0 0" />
     <parent
       link="base_link" />
     <child
@@ -316,17 +319,17 @@
     name="lidar_link">
     <inertial>
       <origin
-        xyz="-3.97749846947626E-10 -0.0183461608911809 -9.54386087724342E-05"
+        xyz="-3.97749846947626E-10 -9.54386087724289E-05 -0.0118651639742243"
         rpy="0 0 0" />
       <mass
         value="0.100511981883415" />
       <inertia
         ixx="3.39518063996325E-05"
-        ixy="-1.6211120950645E-12"
-        ixz="-2.92284267223383E-13"
-        iyy="4.1935853096105E-05"
-        iyz="1.1815579647801E-07"
-        izz="3.44778101670497E-05" />
+        ixy="-2.92284267117192E-13"
+        ixz="1.62111209503273E-12"
+        iyy="3.44778101670497E-05"
+        iyz="-1.18155796478011E-07"
+        izz="4.1935853096105E-05" />
     </inertial>
     <visual>
       <origin
@@ -356,8 +359,8 @@
     name="lidar_joint"
     type="fixed">
     <origin
-      xyz="0 -0.1005 -0.023"
-      rpy="-1.5708 0 -1.5708" />
+      xyz="0.1005 0 0.0072113"
+      rpy="0 0 0" />
     <parent
       link="base_link" />
     <child
@@ -369,17 +372,17 @@
     name="front_right_ultrasound_link">
     <inertial>
       <origin
-        xyz="-4.30733527063201E-05 0.00367564883489799 -6.9913657863175E-05"
+        xyz="4.30733527063271E-05 0.00367564883489799 6.9913657863175E-05"
         rpy="0 0 0" />
       <mass
         value="0.00383513951999245" />
       <inertia
         ixx="1.59365628586767E-07"
-        ixy="-8.54250314742368E-10"
+        ixy="8.54250314742497E-10"
         ixz="-3.40905422018182E-09"
         iyy="7.6875152346034E-07"
-        iyz="2.65062440645525E-09"
-        izz="7.26221149125633E-07" />
+        iyz="-2.65062440645525E-09"
+        izz="7.26221149125632E-07" />
     </inertial>
     <visual>
       <origin
@@ -409,8 +412,8 @@
     name="front_right_ultrasound_joint"
     type="fixed">
     <origin
-      xyz="-0.052978 -0.12028 -0.031"
-      rpy="3.1416 0 -0.29671" />
+      xyz="0.12028 -0.052978 -0.031"
+      rpy="0 0 -1.8675" />
     <parent
       link="base_link" />
     <child
@@ -422,17 +425,17 @@
     name="front_left_ultrasound_link">
     <inertial>
       <origin
-        xyz="-4.30733527062924E-05 0.00367564883489804 -6.99136578631437E-05"
+        xyz="-4.30733527062924E-05 -0.00367564883489804 6.99136578631437E-05"
         rpy="0 0 0" />
       <mass
         value="0.00383513951999246" />
       <inertia
         ixx="1.59365628586768E-07"
-        ixy="-8.54250314742662E-10"
-        ixz="-3.40905422018192E-09"
+        ixy="8.54250314742616E-10"
+        ixz="3.40905422018196E-09"
         iyy="7.68751523460337E-07"
-        iyz="2.65062440645509E-09"
-        izz="7.26221149125629E-07" />
+        iyz="2.65062440645508E-09"
+        izz="7.26221149125628E-07" />
     </inertial>
     <visual>
       <origin
@@ -462,8 +465,8 @@
     name="front_left_ultrasound_joint"
     type="fixed">
     <origin
-      xyz="0.052978 -0.12028 -0.031"
-      rpy="3.1416 0 0.29671" />
+      xyz="0.12028 0.052978 -0.031"
+      rpy="0 0 1.8675" />
     <parent
       link="base_link" />
     <child
@@ -475,16 +478,16 @@
     name="rear_left_ultrasound_link">
     <inertial>
       <origin
-        xyz="-4.30733527062785E-05 0.00367564883489802 -6.99136578631784E-05"
+        xyz="4.30733527062716E-05 0.00367564883489802 6.99136578631784E-05"
         rpy="0 0 0" />
       <mass
         value="0.00383513951999244" />
       <inertia
         ixx="1.59365628586767E-07"
-        ixy="-8.542503147421E-10"
-        ixz="-3.40905422018204E-09"
+        ixy="8.54250314742189E-10"
+        ixz="-3.40905422018205E-09"
         iyy="7.6875152346034E-07"
-        iyz="2.65062440645534E-09"
+        iyz="-2.65062440645534E-09"
         izz="7.26221149125632E-07" />
     </inertial>
     <visual>
@@ -515,8 +518,8 @@
     name="rear_left_ultrasound_joint"
     type="fixed">
     <origin
-      xyz="0.056561 0.11919 -0.031"
-      rpy="3.1416 0 2.8449" />
+      xyz="-0.11919 0.056561 -0.031"
+      rpy="0 0 1.2741" />
     <parent
       link="base_link" />
     <child
@@ -528,17 +531,17 @@
     name="rear_right_ultrasound_link">
     <inertial>
       <origin
-        xyz="0 0 0"
+        xyz="4.30733527062716E-05 0.00367564883489802 6.99136578631541E-05"
         rpy="0 0 0" />
       <mass
-        value="0" />
+        value="0.00383513951999245" />
       <inertia
-        ixx="0"
-        ixy="0"
-        ixz="0"
-        iyy="0"
-        iyz="0"
-        izz="0" />
+        ixx="1.59365628586768E-07"
+        ixy="8.54250314743036E-10"
+        ixz="-3.40905422018172E-09"
+        iyy="7.68751523460337E-07"
+        iyz="-2.65062440645517E-09"
+        izz="7.26221149125628E-07" />
     </inertial>
     <visual>
       <origin
@@ -551,7 +554,7 @@
       <material
         name="">
         <color
-          rgba="1 1 1 1" />
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
     <collision>
@@ -568,8 +571,8 @@
     name="rear_right_ultrasound_joint"
     type="fixed">
     <origin
-      xyz="-0.0565606470918482 0.119187021096338 -0.031"
-      rpy="3.14159265358979 0 -2.84488668075076" />
+      xyz="-0.119187021096338 -0.0565606470918482 -0.031"
+      rpy="0 0 1.86750229963393" />
     <parent
       link="base_link" />
     <child

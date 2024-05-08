@@ -7,8 +7,9 @@ mobile_base_controller:
   left_wheel: ['front_left_wheel_joint', 'rear_left_wheel_joint']
   right_wheel: ['front_right_wheel_joint', 'rear_right_wheel_joint']
   publish_rate: 50
-  pose_covariance_diagonal: [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 0.03]
-  twist_covariance_diagonal: [0.001, 0.001, 0.001, 1000000.0, 1000000.0, 0.03]
+  pose_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
+  twist_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
+  
   cmd_vel_timeout: 0.25
 
   # Odometry fused with IMU is published by robot_localization, so
