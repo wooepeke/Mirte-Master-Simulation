@@ -4,6 +4,9 @@
      For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
 <robot
   name="robot_base" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:property name="radius" value="0.055" />
+  <xacro:property name="length" value="0.05" />
+
   <link
     name="base_link">
     <inertial>
@@ -77,9 +80,9 @@
     <collision>
       <origin
         xyz="0 0 0"
-        rpy="0 0 0" />
+        rpy="0 1.56 0" />
       <geometry>
-        <cylinder radius="0.08" length="0.1" />
+        <cylinder radius="${radius}" length="${length}" />
         <!-- <mesh filename="package://mirte_description/meshes/front_left_wheel_link.STL" /> -->
       </geometry>
     </collision>
@@ -130,9 +133,9 @@
     <collision>
       <origin
         xyz="0 0 0"
-        rpy="0 0 0" />
+        rpy="0 1.56 0" />
       <geometry>
-        <cylinder radius="0.08" length="0.1" />
+        <cylinder radius="${radius}" length="${length}" />
         <!-- <mesh filename="package://mirte_description/meshes/front_right_wheel_link.STL" /> -->
       </geometry>
     </collision>
@@ -183,9 +186,9 @@
     <collision>
       <origin
         xyz="0 0 0"
-        rpy="0 0 0" />
+        rpy="0 1.56 0" />
       <geometry>
-        <cylinder radius="0.08" length="0.1" />
+        <cylinder radius="${radius}" length="${length}" />
         <!-- <mesh filename="package://mirte_description/meshes/rear_left_wheel_link.STL" /> -->
       </geometry>
     </collision>
@@ -236,9 +239,9 @@
     <collision>
       <origin
         xyz="0 0 0"
-        rpy="0 0 0" />
+        rpy="0 1.56 0" />
       <geometry>
-        <cylinder radius="0.08" length="0.1" />
+        <cylinder radius="${radius}" length="${length}" />
         <!-- <mesh filename="package://mirte_description/meshes/rear_right_wheel_link.STL" /> -->
       </geometry>
     </collision>
@@ -583,7 +586,7 @@
       <actuator name="front_left_wheel_actuator">
         <mechanicalReduction>1</mechanicalReduction>
       </actuator>
-  </transmission>  
+  </transmission>
   
   <transmission name="front_right_wheel_trans">
       <type>transmission_interface/SimpleTransmission</type>
