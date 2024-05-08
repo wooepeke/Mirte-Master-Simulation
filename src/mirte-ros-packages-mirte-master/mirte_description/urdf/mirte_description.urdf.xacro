@@ -3,22 +3,22 @@
      Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
      For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
 <robot
-  name="mirte_description" xmlns:xacro="http://ros.org/wiki/xacro">
+  name="robot_base" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <link
     name="base_link">
     <inertial>
       <origin
-        xyz="-0.00127942588707535 0.0151241102447173 -0.00985810717289011"
+        xyz="-0.00083266 0.011121 0.0039376"
         rpy="0 0 0" />
       <mass
-        value="1.67774926625852" />
+        value="2.5772" />
       <inertia
-        ixx="0.00906343835306296"
-        ixy="8.45553301983081E-07"
-        ixz="-3.93751691212787E-06"
-        iyy="0.0137382930141301"
-        iyz="0.000240421022548359"
-        izz="0.0076615986898399" />
+        ixx="0.013196"
+        ixy="4.1344E-06"
+        ixz="8.4555E-07"
+        iyy="0.010087"
+        iyz="-0.00024042"
+        izz="0.020292" />
     </inertial>
     <visual>
       <origin
@@ -31,7 +31,7 @@
       <material
         name="">
         <color
-          rgba="0.909803921568627 0.443137254901961 0.0313725490196078 1" />
+          rgba="0.52941 0.54902 0.54902 1" />
       </material>
     </visual>
     <collision>
@@ -48,17 +48,17 @@
     name="front_left_wheel_link">
     <inertial>
       <origin
-        xyz="0.030103 0.034202 0.03996"
+        xyz="6.4107E-05 2.9249E-10 -1.1211E-10"
         rpy="0 0 0" />
       <mass
         value="0.26661" />
       <inertia
-        ixx="8.0546E-05"
-        ixy="2.8056E-15"
-        ixz="1.0884E-14"
+        ixx="9.3196E-05"
+        ixy="-9.6888E-15"
+        ixz="-1.226E-14"
         iyy="8.0546E-05"
-        iyz="1.1213E-14"
-        izz="9.3196E-05" />
+        iyz="1.9673E-15"
+        izz="8.0546E-05" />
     </inertial>
     <visual>
       <origin
@@ -79,39 +79,39 @@
         xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://mirte_description/meshes/front_left_wheel_link.STL" />
+        <cylinder radius="0.08" length="0.1" />
+        <!-- <mesh filename="package://mirte_description/meshes/front_left_wheel_link.STL" /> -->
       </geometry>
     </collision>
   </link>
   <joint
     name="front_left_wheel_joint"
-    type="fixed">
+    type="continuous">
     <origin
-      xyz="0.16802 -0.050672 -0.07546"
-      rpy="1.5708 0.13151 -1.5708" />
+      xyz="0.128 -0.085 -0.0455"
+      rpy="1.5708 0 0" />
     <parent
       link="base_link" />
     <child
       link="front_left_wheel_link" />
     <axis
-      xyz="0 0 0" />
+      xyz="-1 0 0" />
   </joint>
   <link
     name="front_right_wheel_link">
     <inertial>
       <origin
-        xyz="0.030103 0.034202 0.03996"
+        xyz="6.4107E-05 2.1252E-10 -1.9E-10"
         rpy="0 0 0" />
       <mass
         value="0.26661" />
       <inertia
-        ixx="8.0546E-05"
-        ixy="-5.0529E-15"
-        ixz="7.75E-14"
+        ixx="9.3196E-05"
+        ixy="-9.6011E-15"
+        ixz="-7.6917E-14"
         iyy="8.0546E-05"
-        iyz="-1.4708E-15"
-        izz="9.3196E-05" />
+        iyz="-4.5866E-15"
+        izz="8.0546E-05" />
     </inertial>
     <visual>
       <origin
@@ -132,92 +132,39 @@
         xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://mirte_description/meshes/front_right_wheel_link.STL" />
+        <cylinder radius="0.08" length="0.1" />
+        <!-- <mesh filename="package://mirte_description/meshes/front_right_wheel_link.STL" /> -->
       </geometry>
     </collision>
   </link>
   <joint
     name="front_right_wheel_joint"
-    type="fixed">
+    type="continuous">
     <origin
-      xyz="-0.087976 -0.060085 -0.083647"
-      rpy="1.5708 -0.14316 -1.5708" />
+      xyz="-0.128 -0.085 -0.0455"
+      rpy="1.5708 0 0" />
     <parent
       link="base_link" />
     <child
       link="front_right_wheel_link" />
     <axis
-      xyz="0 0 0" />
-  </joint>
-  <link
-    name="rear_right_wheel_link">
-    <inertial>
-      <origin
-        xyz="0.030103 0.034202 0.03996"
-        rpy="0 0 0" />
-      <mass
-        value="0.26661" />
-      <inertia
-        ixx="8.0546E-05"
-        ixy="1.1771E-15"
-        ixz="9.8191E-15"
-        iyy="8.0546E-05"
-        iyz="1.9298E-14"
-        izz="9.3196E-05" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://mirte_description/meshes/rear_right_wheel_link.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.79216 0.81961 0.93333 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://mirte_description/meshes/rear_right_wheel_link.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="rear_right_wheel_joint"
-    type="fixed">
-    <origin
-      xyz="-0.087976 0.11997 -0.074702"
-      rpy="1.5708 0.15337 -1.5708" />
-    <parent
-      link="base_link" />
-    <child
-      link="rear_right_wheel_link" />
-    <axis
-      xyz="0 0 0" />
+      xyz="-1 0 0" />
   </joint>
   <link
     name="rear_left_wheel_link">
     <inertial>
       <origin
-        xyz="0.0301029400755673 0.034202366229229 0.039960226040592"
+        xyz="6.4107E-05 2.1252E-10 -1.9E-10"
         rpy="0 0 0" />
       <mass
-        value="0.266614983226052" />
+        value="0.26661" />
       <inertia
-        ixx="8.05457942742895E-05"
-        ixy="-5.04132749678783E-15"
-        ixz="7.74862268226729E-14"
-        iyy="8.05457942724331E-05"
-        iyz="-1.47689691197136E-15"
-        izz="9.31956038947576E-05" />
+        ixx="9.3196E-05"
+        ixy="-9.5931E-15"
+        ixz="-7.6904E-14"
+        iyy="8.0546E-05"
+        iyz="-4.574E-15"
+        izz="8.0546E-05" />
     </inertial>
     <visual>
       <origin
@@ -226,6 +173,59 @@
       <geometry>
         <mesh
           filename="package://mirte_description/meshes/rear_left_wheel_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.08" length="0.1" />
+        <!-- <mesh filename="package://mirte_description/meshes/rear_left_wheel_link.STL" /> -->
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rear_left_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="0.128 0.085 -0.0455"
+      rpy="1.5708 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="rear_left_wheel_link" />
+    <axis
+      xyz="-1 0 0" />
+  </joint>
+  <link
+    name="rear_right_wheel_link">
+    <inertial>
+      <origin
+        xyz="6.41072041088764E-05 2.94731093697376E-10 -1.00091462895691E-10"
+        rpy="0 0 0" />
+      <mass
+        value="0.26661498322592" />
+      <inertia
+        ixx="9.3195603896201E-05"
+        ixy="-1.7571315886241E-14"
+        ixz="-1.26520007319569E-14"
+        iyy="8.05457942703286E-05"
+        iyz="4.82091468818614E-17"
+        izz="8.05457942778204E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mirte_description/meshes/rear_right_wheel_link.STL" />
       </geometry>
       <material
         name="">
@@ -238,39 +238,39 @@
         xyz="0 0 0"
         rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://mirte_description/meshes/rear_left_wheel_link.STL" />
+        <cylinder radius="0.08" length="0.1" />
+        <!-- <mesh filename="package://mirte_description/meshes/rear_right_wheel_link.STL" /> -->
       </geometry>
     </collision>
   </link>
   <joint
-    name="rear_left_wheel_joint"
-    type="fixed">
+    name="rear_right_wheel_joint"
+    type="continuous">
     <origin
-      xyz="0.16802 0.10992 -0.083647"
-      rpy="1.5708 -0.14316 -1.5708" />
+      xyz="-0.128 0.085 -0.0455"
+      rpy="1.5708 0 0" />
     <parent
       link="base_link" />
     <child
-      link="rear_left_wheel_link" />
+      link="rear_right_wheel_link" />
     <axis
-      xyz="0 0 0" />
+      xyz="-1 0 0" />
   </joint>
   <link
     name="camera_link">
     <inertial>
       <origin
-        xyz="0.0013219 -0.00039201 -0.022261"
+        xyz="0.00132191548038025 -0.000392007221992376 -0.0222605569788096"
         rpy="0 0 0" />
       <mass
-        value="0.18813" />
+        value="0.188133920336356" />
       <inertia
-        ixx="6.9146E-05"
-        ixy="2.5433E-06"
-        ixz="1.9137E-05"
-        iyy="0.00044907"
-        iyz="-4.2726E-06"
-        izz="0.0004083" />
+        ixx="6.91459456639027E-05"
+        ixy="2.54332844338707E-06"
+        ixz="1.91366259472817E-05"
+        iyy="0.000449074814854817"
+        iyz="-4.27256160719624E-06"
+        izz="0.00040830401695793" />
     </inertial>
     <visual>
       <origin
@@ -283,7 +283,7 @@
       <material
         name="">
         <color
-          rgba="0.25098 0.25098 0.25098 1" />
+          rgba="0.250980392156863 0.250980392156863 0.250980392156863 1" />
       </material>
     </visual>
     <collision>
@@ -313,14 +313,14 @@
     name="lidar_link">
     <inertial>
       <origin
-        xyz="-3.97749846947626E-10 -0.0183461608911809 -9.54386087724353E-05"
+        xyz="-3.97749846947626E-10 -0.0183461608911809 -9.54386087724342E-05"
         rpy="0 0 0" />
       <mass
         value="0.100511981883415" />
       <inertia
         ixx="3.39518063996325E-05"
-        ixy="-1.6211120950128E-12"
-        ixz="-2.92284267119986E-13"
+        ixy="-1.6211120950645E-12"
+        ixz="-2.92284267223383E-13"
         iyy="4.1935853096105E-05"
         iyz="1.1815579647801E-07"
         izz="3.44778101670497E-05" />
@@ -363,73 +363,20 @@
       xyz="0 0 0" />
   </joint>
   <link
-    name="fron_left_ultrasone_link">
+    name="front_right_ultrasound_link">
     <inertial>
       <origin
-        xyz="-4.3073E-05 0.0036756 -6.9914E-05"
-        rpy="0 0 0" />
-      <mass
-        value="0.0038351" />
-      <inertia
-        ixx="1.5937E-07"
-        ixy="-8.5425E-10"
-        ixz="-3.4091E-09"
-        iyy="7.6875E-07"
-        iyz="2.6506E-09"
-        izz="7.2622E-07" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://mirte_description/meshes/fron_left_ultrasone_link.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.79216 0.81961 0.93333 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://mirte_description/meshes/fron_left_ultrasone_link.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="fron_left_ultrasone_joint"
-    type="fixed">
-    <origin
-      xyz="0.052978 -0.12028 -0.031"
-      rpy="3.1416 0 0.29671" />
-    <parent
-      link="base_link" />
-    <child
-      link="fron_left_ultrasone_link" />
-    <axis
-      xyz="0 0 0" />
-  </joint>
-  <link
-    name="fron_right_ultrasone_link">
-    <inertial>
-      <origin
-        xyz="-4.30733527063132E-05 0.00367564883489799 -6.9913657863175E-05"
+        xyz="-4.30733527063201E-05 0.00367564883489799 -6.9913657863175E-05"
         rpy="0 0 0" />
       <mass
         value="0.00383513951999245" />
       <inertia
         ixx="1.59365628586767E-07"
-        ixy="-8.54250314742421E-10"
-        ixz="-3.40905422018178E-09"
+        ixy="-8.54250314742368E-10"
+        ixz="-3.40905422018182E-09"
         iyy="7.6875152346034E-07"
         iyz="2.65062440645525E-09"
-        izz="7.26221149125632E-07" />
+        izz="7.26221149125633E-07" />
     </inertial>
     <visual>
       <origin
@@ -437,7 +384,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://mirte_description/meshes/fron_right_ultrasone_link.STL" />
+          filename="package://mirte_description/meshes/front_right_ultrasound_link.STL" />
       </geometry>
       <material
         name="">
@@ -451,12 +398,12 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://mirte_description/meshes/fron_right_ultrasone_link.STL" />
+          filename="package://mirte_description/meshes/front_right_ultrasound_link.STL" />
       </geometry>
     </collision>
   </link>
   <joint
-    name="fron_right_ultrasone_joint"
+    name="front_right_ultrasound_joint"
     type="fixed">
     <origin
       xyz="-0.052978 -0.12028 -0.031"
@@ -464,25 +411,25 @@
     <parent
       link="base_link" />
     <child
-      link="fron_right_ultrasone_link" />
+      link="front_right_ultrasound_link" />
     <axis
       xyz="0 0 0" />
   </joint>
   <link
-    name="rear_left_ultrasone_link">
+    name="front_left_ultrasound_link">
     <inertial>
       <origin
-        xyz="-4.3073E-05 0.0036756 -6.9914E-05"
+        xyz="-4.30733527062924E-05 0.00367564883489804 -6.99136578631437E-05"
         rpy="0 0 0" />
       <mass
-        value="0.0038351" />
+        value="0.00383513951999246" />
       <inertia
-        ixx="1.5937E-07"
-        ixy="-8.5425E-10"
-        ixz="-3.4091E-09"
-        iyy="7.6875E-07"
-        iyz="2.6506E-09"
-        izz="7.2622E-07" />
+        ixx="1.59365628586768E-07"
+        ixy="-8.54250314742662E-10"
+        ixz="-3.40905422018192E-09"
+        iyy="7.68751523460337E-07"
+        iyz="2.65062440645509E-09"
+        izz="7.26221149125629E-07" />
     </inertial>
     <visual>
       <origin
@@ -490,12 +437,12 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://mirte_description/meshes/rear_left_ultrasone_link.STL" />
+          filename="package://mirte_description/meshes/front_left_ultrasound_link.STL" />
       </geometry>
       <material
         name="">
         <color
-          rgba="0.79216 0.81961 0.93333 1" />
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
       </material>
     </visual>
     <collision>
@@ -504,12 +451,65 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://mirte_description/meshes/rear_left_ultrasone_link.STL" />
+          filename="package://mirte_description/meshes/front_left_ultrasound_link.STL" />
       </geometry>
     </collision>
   </link>
   <joint
-    name="rear_left_ultrasone_joint"
+    name="front_left_ultrasound_joint"
+    type="fixed">
+    <origin
+      xyz="0.052978 -0.12028 -0.031"
+      rpy="3.1416 0 0.29671" />
+    <parent
+      link="base_link" />
+    <child
+      link="front_left_ultrasound_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="rear_left_ultrasound_link">
+    <inertial>
+      <origin
+        xyz="-4.30733527062785E-05 0.00367564883489802 -6.99136578631784E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.00383513951999244" />
+      <inertia
+        ixx="1.59365628586767E-07"
+        ixy="-8.542503147421E-10"
+        ixz="-3.40905422018204E-09"
+        iyy="7.6875152346034E-07"
+        iyz="2.65062440645534E-09"
+        izz="7.26221149125632E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mirte_description/meshes/rear_left_ultrasound_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mirte_description/meshes/rear_left_ultrasound_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rear_left_ultrasound_joint"
     type="fixed">
     <origin
       xyz="0.056561 0.11919 -0.031"
@@ -517,12 +517,12 @@
     <parent
       link="base_link" />
     <child
-      link="rear_left_ultrasone_link" />
+      link="rear_left_ultrasound_link" />
     <axis
       xyz="0 0 0" />
   </joint>
   <link
-    name="rear_right_ultrasone_link">
+    name="rear_right_ultrasound_link">
     <inertial>
       <origin
         xyz="0 0 0"
@@ -543,7 +543,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://mirte_description/meshes/rear_right_ultrasone_link.STL" />
+          filename="package://mirte_description/meshes/rear_right_ultrasound_link.STL" />
       </geometry>
       <material
         name="">
@@ -557,12 +557,12 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://mirte_description/meshes/rear_right_ultrasone_link.STL" />
+          filename="package://mirte_description/meshes/rear_right_ultrasound_link.STL" />
       </geometry>
     </collision>
   </link>
   <joint
-    name="rear_right_ultrasone_joint"
+    name="rear_right_ultrasound_joint"
     type="fixed">
     <origin
       xyz="-0.0565606470918482 0.119187021096338 -0.031"
@@ -570,8 +570,49 @@
     <parent
       link="base_link" />
     <child
-      link="rear_right_ultrasone_link" />
+      link="rear_right_ultrasound_link" />
     <axis
       xyz="0 0 0" />
   </joint>
+
+  <transmission name="front_left_wheel_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="front_left_wheel_joint">
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="front_left_wheel_actuator">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+  </transmission>  
+  
+  <transmission name="front_right_wheel_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="front_right_wheel_joint">
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="front_right_wheel_actuator">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+  </transmission>
+
+  <transmission name="rear_right_wheel_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="rear_right_wheel_joint">
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="rear_right_wheel_actuator">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+  <transmission name="rear_left_wheel_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="rear_left_wheel_joint">
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="rear_left_wheel_actuator">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
 </robot>
