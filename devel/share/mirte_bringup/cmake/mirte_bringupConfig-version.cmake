@@ -1,0 +1,1 @@
+/home/xavier/Personal/ro47007_MDP/group7-epic-mirte-master-we-are-nr1/devel/.private/mirte_bringup/share/mirte_bringup/cmake/mirte_bringupConfig-version.cmake

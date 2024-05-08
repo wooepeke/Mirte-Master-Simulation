@@ -1,0 +1,65 @@
+<launch>
+
+  <!-- these are the arguments you can pass this launch file, for example paused:=true -->
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find mirte_gazebo)/worlds/mirtebot.world"/>
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="headless" value="$(arg headless)"/>
+  </include>
+
+  <!--node
+    name="spawn_model"
+    pkg="gazebo_ros"
+    type="spawn_model"
+    args="-file $(find mirtebot_description)/urdf/mirtebot_description.urdf -urdf -model mirtebot_description"
+    output="screen" /-->
+
+  <node 
+    pkg="tf2_ros" 
+    type="static_transform_publisher" 
+    name="odom_to_basefootprint" 
+    args="0.0 0.0 0.0 0 0 0.0 /odom /base_footprint " />
+
+  <node 
+    pkg="tf2_ros" 
+    type="static_transform_publisher" 
+    name="base_footprint_to_base_link"
+    args="0 0.0 0 0.0 0.0  0.0 /base_footprint /base_link " />
+
+  <param 
+        name="robot_description" 
+        command="$(find xacro)/xacro
+        '$(find mirtebot_description)/urdf/mirtebot.xacro'
+        "
+    />
+  
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model robot_base" />
+
+  <!-- load controller configurations from yaml file to parameter server -->
+  <rosparam command="load" file="$(find mirtebot_description)/config/control_mirtebot.yaml" />
+
+  <!-- load the controllers -->
+  <node name="controller_spawner" output="screen" pkg="controller_manager" type="spawner" args="joint_state_controller mobile_base_controller"/>
+
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization" />
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mirtebot_description)/urdf.rviz" />
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" />
+
+  <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" /> -->
+
+
+  <!-- ros_control rrbot launch file -->
+  <!--include file="$(find rrbot_control)/launch/rrbot_control.launch" /-->
+
+</launch>

@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="robot_base">
+
+   <gazebo reference="base_link">
+       <material>Gazebo/Black</material>
+   </gazebo>
+
+   <gazebo reference="front_left_wheel_link">
+       <mu1>0.0</mu1>
+       <mu2>0.0</mu2>
+        <kp value="10000000.0" />
+        <kd value="1.0" />
+        <fdir1 value="1 0 0"/>
+       <material>Gazebo/Orange</material>
+   </gazebo>
+
+
+   <gazebo reference="rear_left_wheel_link">
+       <mu1>0.0</mu1>
+       <mu2>0.0</mu2>
+        <kp value="10000000.0" />
+        <kd value="1.0" />
+        <fdir1 value="1 0 0"/>
+       <material>Gazebo/Orange</material>
+   </gazebo>
+
+
+   <gazebo reference="front_right_wheel_link">
+       <mu1>0.0</mu1>
+       <mu2>0.0</mu2>
+        <kp value="10000000.0" />
+        <kd value="1.0" />
+        <fdir1 value="1 0 0"/>
+       <material>Gazebo/Orange</material>
+   </gazebo>
+
+
+   <gazebo reference="rear_right_wheel_link">
+       <mu1>0.0</mu1>
+       <mu2>0.0</mu2>
+        <kp value="10000000.0" />
+        <kd value="1.0" />
+        <fdir1 value="1 0 0"/>
+       <material>Gazebo/Orange</material>
+   </gazebo>
+
+<!--######################################################################-->
+   <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>/</robotNamespace>
+            <controlPeriod>0.001</controlPeriod>
+            <legacyModeNS>false</legacyModeNS>
+       </plugin>
+        
+       <!-- <plugin name="gazebo_ros_mecanum_diff_drive" filename="libgazebo_ros_mecanum_drive.so">
+            <commandTopic>cmd_vel</commandTopic>
+            <odometryTopic>odom</odometryTopic>
+            <odometryFrame>odom</odometryFrame>
+            <robotBaseFrame>base_footprint</robotBaseFrame>
+            <LeftRear>front_left_wheel_joint</LeftRear>
+            <LeftFront>front_right_wheel_joint</LeftFront>
+            <RightFront>rear_left_wheel_joint</RightFront>
+            <RightRear>rear_right_wheel_joint</RightRear>
+            <odometryRate>20</odometryRate>      
+            <publishWheelTF>true</publishWheelTF>
+            <publishWheelJointState>true</publishWheelJointState>
+            <WheelTorque>1</WheelTorque>
+            <WheelSeparationW>0.5</WheelSeparationW>
+            <WheelSeparationL>0.6</WheelSeparationL>
+            <wheelAccel>5</wheelAccel>
+            <wheelDiameter>0.13</wheelDiameter>
+            <publishOdom>true</publishOdom>
+            <isRollerModel>true</isRollerModel>
+
+       </plugin> -->
+
+        <plugin name="mecanum_controller" filename="libgazebo_ros_planar_move.so">
+
+            <robotNamespace>/</robotNamespace>
+
+            <commandTopic>cmd_vel</commandTopic>
+
+            <odometryTopic>odom</odometryTopic>
+
+            <odometryFrame>odom</odometryFrame>
+
+            <leftFrontJoint>front_left_wheel_joint</leftFrontJoint>
+
+            <rightFrontJoint>front_right_wheel_joint</rightFrontJoint>
+
+            <leftRearJoint>back_left_wheel_joint</leftRearJoint>
+
+            <rightRearJoint>back_right_wheel_joint</rightRearJoint>
+
+            <odometryRate>60.0</odometryRate>
+
+            <robotBaseFrame>base_link</robotBaseFrame>
+
+        </plugin>
+
+   </gazebo>
+
+
+</robot>
+
+
+
+
+
