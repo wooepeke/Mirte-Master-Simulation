@@ -1,0 +1,24 @@
+<launch>
+
+  <!-- these are the arguments you can pass this launch file, for example paused:=true -->
+
+  <group>
+      <rosparam command="load" file="$(find mirte_description)/config/control_skiddiff.yaml"/>
+      <include file="$(find gazebo_ros)/launch/empty_world.launch"/>
+      
+      <param name="robot_description" command="$(find xacro)/xacro --inorder $(find mirte_description)/urdf/mirtebot.xacro"/>
+      
+      <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model robot_base" />
+      
+      <node pkg="robot_state_publisher" type="robot_state_publisher"  name="robot_state_publisher">
+        <param name="publish_frequency" type="double" value="30.0" />
+      </node>
+
+      <node name="controller_spawner" output="screen" pkg="controller_manager" type="spawner" args="joint_state_controller mobile_base_controller"/>
+
+      <!-- <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization" /> -->
+
+      <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mirte_description)/urdf.rviz" />
+  </group>
+
+</launch>
