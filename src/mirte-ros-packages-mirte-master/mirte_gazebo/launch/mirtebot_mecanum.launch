@@ -9,6 +9,10 @@
       
       <param name="robot_description" command="$(find xacro)/xacro --inorder $(find mirte_description)/urdf/mirtebot.xacro"/>
       
+      <node pkg="slam_toolbox" type="async_slam_toolbox_node" name="slam_toolbox" output="screen">
+        <rosparam command="load" file="$(find mirte_description)/config/mapper_params_online_async.yaml" />
+      </node>
+
       <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model robot_base" />
       
       <node pkg="robot_state_publisher" type="robot_state_publisher"  name="robot_state_publisher">
@@ -19,7 +23,7 @@
 
       <!-- <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization" /> -->
 
-      <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mirte_description)/urdf.rviz" />
+      <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mirte_description)/config/display.rviz" />
   </group>
 
 </launch>

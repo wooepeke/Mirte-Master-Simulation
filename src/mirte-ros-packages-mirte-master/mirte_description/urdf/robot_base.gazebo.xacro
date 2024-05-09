@@ -43,11 +43,12 @@
        <material>Gazebo/Orange</material>
    </gazebo>
 
+<!--########################### Lidar sensor ###########################################-->
 <gazebo reference="lidar_link">
         <sensor type="ray" name="lidar_sensor">
         <pose>0 0 0 0 0 0</pose>
         <visualize>true</visualize>
-        <update_rate>50</update_rate>
+        <update_rate>500</update_rate>
         <ray>
             <scan>
             <horizontal>
@@ -79,8 +80,53 @@
         </sensor>
 </gazebo>
 
+<!--########################### Camera sensor ###########################################-->
+<gazebo reference="camera_link">
+  <sensor name="camera_link_camera" type="depth">
+    <visualize>true</visualize>
+  
+    <update_rate>20</update_rate>
+    <camera>
+      <horizontal_fov>1.047198</horizontal_fov>
+      <image>
+        <width>640</width>
+        <height>480</height>
+        <format>R8G8B8</format>
+      </image>
+      <clip>
+        <near>0.05</near>
+        <far>3</far>
+      </clip>
+    </camera>
+    <plugin name="camera_link_controller" filename="libgazebo_ros_openni_kinect.so">
+      <baseline>0.2</baseline>
+      <alwaysOn>true</alwaysOn>
+      <updateRate>1.0</updateRate>
+      <cameraName>depth_camera_ir</cameraName>
+      <imageTopicName>/depth_camera/color/image_raw</imageTopicName>
+      <cameraInfoTopicName>/depth_camera/color/camera_info</cameraInfoTopicName>
+      <depthImageTopicName>/depth_camera/depth/image_raw</depthImageTopicName>
+      <depthImageInfoTopicName>/depth_camera/depth/camera_info</depthImageInfoTopicName>
+      <pointCloudTopicName>/depth_camera/depth/points</pointCloudTopicName>
+      <frameName>camera_link</frameName>
+      <pointCloudCutoff>0.5</pointCloudCutoff>
+      <pointCloudCutoffMax>3.0</pointCloudCutoffMax>
+      <distortionK1>0.00000001</distortionK1>
+      <distortionK2>0.00000001</distortionK2>
+      <distortionK3>0.00000001</distortionK3>
+      <distortionT1>0.00000001</distortionT1>
+      <distortionT2>0.00000001</distortionT2>
+      <CxPrime>0</CxPrime>
+      <Cx>0</Cx>
+      <Cy>0</Cy>
+      <focalLength>0</focalLength>
+      <hackBaseline>0</hackBaseline>
+    </plugin>
+  </sensor>
+</gazebo>
 
-<!--######################################################################-->
+
+<!--################################ Controllers ######################################-->
    <gazebo>
         <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
             <robotNamespace>/</robotNamespace>
@@ -88,59 +134,41 @@
             <legacyModeNS>false</legacyModeNS>
        </plugin>
         
-       <!-- <plugin name="mecanum_controller" filename="libgazebo_ros_mecanum_drive.so">
+       <plugin name="mecanum_controller" filename="libgazebo_ros_mecanum_drive.so">
             <robotNamespace>/</robotNamespace>
+            <legacyMode>false</legacyMode>
+            <alwaysOn>true</alwaysOn>
 
             <commandTopic>cmd_vel</commandTopic>
 
             <odometryTopic>odom</odometryTopic>
-            <odometryFrame>odom</odometryFrame>
+            <odometryFrame>map</odometryFrame>
+            <odometrySource>world</odometrySource>
+
+            <wheelSeparation>0.256</wheelSeparation>
+            <wheelDiameter>0.102</wheelDiameter>
 
             <robotBaseFrame>base_link</robotBaseFrame>
+            <updateRate>500.0</updateRate>
 
-            <LeftRear>front_left_wheel_joint</LeftRear>
-            <LeftFront>front_right_wheel_joint</LeftFront>
-            <RightFront>rear_left_wheel_joint</RightFront>
+            <LeftRear>rear_left_wheel_joint</LeftRear>
+            <LeftFront>front_left_wheel_joint</LeftFront>
+            <RightFront>front_right_wheel_joint</RightFront>
             <RightRear>rear_right_wheel_joint</RightRear>
 
-            <odometryRate>60</odometryRate>      
-            <publishWheelTF>true</publishWheelTF>
+            <publishWheelTF>false</publishWheelTF>
             <publishWheelJointState>true</publishWheelJointState>
 
             <WheelTorque>1</WheelTorque>
-            <wheelAccel>5</wheelAccel>
+            <wheelAcceleration>2.8</wheelAcceleration>
 
-            <publishOdom>false</publishOdom>
+            <publishTf>1</publishTf>
 
             <isRollerModel>true</isRollerModel>
 
-       </plugin> -->
+       </plugin>
 
-        <!-- <plugin name="mecanum_controller" filename="libgazebo_ros_planar_move.so">
-
-            <robotNamespace>/</robotNamespace>
-
-            <commandTopic>cmd_vel</commandTopic>
-
-            <odometryTopic>odom</odometryTopic>
-
-            <odometryFrame>odom</odometryFrame>
-
-            <leftFrontJoint>front_left_wheel_joint</leftFrontJoint>
-
-            <rightFrontJoint>front_right_wheel_joint</rightFrontJoint>
-
-            <leftRearJoint>rear_left_wheel_joint</leftRearJoint>
-
-            <rightRearJoint>rear_right_wheel_joint</rightRearJoint>
-
-            <odometryRate>60.0</odometryRate>
-
-            <robotBaseFrame>base_link</robotBaseFrame>
-
-        </plugin> -->
-
-      <plugin name="diff_drive_controller" filename="libgazebo_ros_diff_drive.so">
+      <!-- <plugin name="diff_drive_controller" filename="libgazebo_ros_diff_drive.so">
         <legacyMode>false</legacyMode>
         <alwaysOn>true</alwaysOn>
         <updateRate>50.0</updateRate>
@@ -160,7 +188,7 @@
         <publishWheelTF>false</publishWheelTF>
         <odometrySource>world</odometrySource>
         <rosDebugLevel>Debug</rosDebugLevel>
-      </plugin>
+      </plugin> -->
 
    </gazebo>
 
