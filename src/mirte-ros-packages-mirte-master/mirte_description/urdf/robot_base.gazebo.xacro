@@ -1,13 +1,16 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robot_base">
+  <xacro:property name="set_mu1" value="0.5" />
+  <xacro:property name="set_mu2" value="0.5" />
+
 
    <gazebo reference="base_link">
        <material>Gazebo/Black</material>
    </gazebo>
 
    <gazebo reference="front_left_wheel_link">
-       <mu1>0.0</mu1>
-       <mu2>0.0</mu2>
+       <mu1>${set_mu1}</mu1>
+       <mu2>${set_mu2}</mu2>
        <!-- <kp>1000.0</kp>
        <kd>0.1</kd>        -->
        <material>Gazebo/Orange</material>
@@ -15,8 +18,8 @@
 
 
    <gazebo reference="rear_left_wheel_link">
-       <mu1>0.0</mu1>
-       <mu2>0.0</mu2>
+       <mu1>${set_mu1}</mu1>
+       <mu2>${set_mu2}</mu2>
        <!-- <kp>1000.0</kp>
        <kd>0.1</kd> -->
        <material>Gazebo/Orange</material>
@@ -24,8 +27,8 @@
 
 
    <gazebo reference="front_right_wheel_link">
-       <mu1>0.0</mu1>
-       <mu2>0.0</mu2>
+       <mu1>${set_mu1}</mu1>
+       <mu2>${set_mu2}</mu2>
        <!-- <kp>1000.0</kp>
        <kd>0.1</kd>        -->
        <material>Gazebo/Orange</material>
@@ -33,12 +36,49 @@
 
 
    <gazebo reference="rear_right_wheel_link">
-       <mu1>0.0</mu1>
-       <mu2>0.0</mu2>
+       <mu1>${set_mu1}</mu1>
+       <mu2>${set_mu2}</mu2>
        <!-- <kp>1000.0</kp>
        <kd>0.1</kd>        -->
        <material>Gazebo/Orange</material>
    </gazebo>
+
+<gazebo reference="lidar_link">
+        <sensor type="ray" name="lidar_sensor">
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>true</visualize>
+        <update_rate>50</update_rate>
+        <ray>
+            <scan>
+            <horizontal>
+                <samples>719</samples>
+                <resolution>1</resolution>
+                <min_angle>-3.1415</min_angle>
+                <max_angle>3.1415</max_angle>
+            </horizontal>
+            </scan>
+            <range>
+            <min>0.30</min>
+            <max>10.0</max>
+            <resolution>0.01</resolution>
+            </range>
+            <noise>
+            <type>gaussian</type>
+            <!-- Noise parameters based on published spec for Hokuyo laser
+                achieving "+-30mm" accuracy at range < 10m.  A mean of 0.0m and
+                stddev of 0.01m will put 99.7% of samples within 0.03m of the true
+                reading. -->
+            <mean>0.0</mean>
+            <stddev>0.01</stddev>
+            </noise>
+        </ray>
+        <plugin name="lidar_sensor_controller" filename="libgazebo_ros_laser.so">
+            <topicName>/scan</topicName>
+            <frameName>lidar_link</frameName>
+        </plugin>
+        </sensor>
+</gazebo>
+
 
 <!--######################################################################-->
    <gazebo>
@@ -103,12 +143,12 @@
       <plugin name="diff_drive_controller" filename="libgazebo_ros_diff_drive.so">
         <legacyMode>false</legacyMode>
         <alwaysOn>true</alwaysOn>
-        <updateRate>1000.0</updateRate>
+        <updateRate>50.0</updateRate>
         <leftJoint>front_left_wheel_joint, rear_left_wheel_joint</leftJoint>
         <rightJoint>front_right_wheel_joint, rear_right_wheel_joint</rightJoint>
-        <wheelSeparation>0.5</wheelSeparation>
-        <wheelDiameter>0.2</wheelDiameter>
-        <wheelTorque>10</wheelTorque>
+        <wheelSeparation>0.256</wheelSeparation>
+        <wheelDiameter>0.102</wheelDiameter>
+        <wheelTorque>1</wheelTorque>
         <publishTf>1</publishTf>
         <publishOdomTf>1</publishOdomTf>       
         <odometryFrame>map</odometryFrame>
