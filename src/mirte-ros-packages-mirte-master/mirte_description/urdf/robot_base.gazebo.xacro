@@ -134,7 +134,7 @@
             <legacyModeNS>false</legacyModeNS>
        </plugin>
         
-       <plugin name="mecanum_controller" filename="libgazebo_ros_mecanum_drive.so">
+       <!-- <plugin name="mecanum_controller" filename="libgazebo_ros_mecanum_drive.so">
             <robotNamespace>/</robotNamespace>
             <legacyMode>false</legacyMode>
             <alwaysOn>true</alwaysOn>
@@ -166,9 +166,9 @@
 
             <isRollerModel>true</isRollerModel>
 
-       </plugin>
+       </plugin> -->
 
-      <!-- <plugin name="diff_drive_controller" filename="libgazebo_ros_diff_drive.so">
+      <plugin name="diff_drive_controller" filename="libgazebo_ros_diff_drive.so">
         <legacyMode>false</legacyMode>
         <alwaysOn>true</alwaysOn>
         <updateRate>50.0</updateRate>
@@ -188,7 +188,7 @@
         <publishWheelTF>false</publishWheelTF>
         <odometrySource>world</odometrySource>
         <rosDebugLevel>Debug</rosDebugLevel>
-      </plugin> -->
+      </plugin>
 
    </gazebo>
 

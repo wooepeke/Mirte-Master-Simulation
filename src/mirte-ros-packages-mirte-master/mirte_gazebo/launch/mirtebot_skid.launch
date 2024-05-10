@@ -2,7 +2,6 @@
 
   <!-- these are the arguments you can pass this launch file, for example paused:=true -->
 
-    
   <group>
       <rosparam command="load" file="$(find mirte_description)/config/control_skiddiff.yaml"/>
       <include file="$(find gazebo_ros)/launch/empty_world.launch"/>
