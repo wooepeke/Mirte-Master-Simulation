@@ -5,7 +5,8 @@
     
   <group>
       <rosparam command="load" file="$(find mirte_description)/config/control_skiddiff.yaml"/>
-      <include file="$(find mirte_gazebo)/worlds/test_barn1.launch"/>
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find mirte_gazebo)/worlds/test_barn1/model.world"/> 
 
       <node pkg="slam_toolbox" type="async_slam_toolbox_node" name="slam_toolbox" output="screen">
         <rosparam command="load" file="$(find mirte_description)/config/mapper_params_online_async.yaml" />
