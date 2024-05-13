@@ -1,5 +1,0 @@
-mirte-ros-packages-mirte-master/mirte_teleop
-/home/xavier/Personal/ro47007_MDP/group7-epic-mirte-master-we-are-nr1/devel/.private/mirte_teleop/cmake.lock /home/xavier/Personal/ro47007_MDP/group7-epic-mirte-master-we-are-nr1/devel/./cmake.lock
-/home/xavier/Personal/ro47007_MDP/group7-epic-mirte-master-we-are-nr1/devel/.private/mirte_teleop/lib/pkgconfig/mirte_teleop.pc /home/xavier/Personal/ro47007_MDP/group7-epic-mirte-master-we-are-nr1/devel/lib/pkgconfig/mirte_teleop.pc
-/home/xavier/Personal/ro47007_MDP/group7-epic-mirte-master-we-are-nr1/devel/.private/mirte_teleop/share/mirte_teleop/cmake/mirte_teleopConfig.cmake /home/xavier/Personal/ro47007_MDP/group7-epic-mirte-master-we-are-nr1/devel/share/mirte_teleop/cmake/mirte_teleopConfig.cmake
-/home/xavier/Personal/ro47007_MDP/group7-epic-mirte-master-we-are-nr1/devel/.private/mirte_teleop/share/mirte_teleop/cmake/mirte_teleopConfig-version.cmake /home/xavier/Personal/ro47007_MDP/group7-epic-mirte-master-we-are-nr1/devel/share/mirte_teleop/cmake/mirte_teleopConfig-version.cmake

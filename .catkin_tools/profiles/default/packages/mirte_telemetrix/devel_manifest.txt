@@ -1,5 +1,0 @@
-mirte-ros-packages-mirte-master/mirte_telemetrix
-/home/xavier/Personal/ro47007_MDP/group7-epic-mirte-master-we-are-nr1/devel/.private/mirte_telemetrix/cmake.lock /home/xavier/Personal/ro47007_MDP/group7-epic-mirte-master-we-are-nr1/devel/./cmake.lock
-/home/xavier/Personal/ro47007_MDP/group7-epic-mirte-master-we-are-nr1/devel/.private/mirte_telemetrix/lib/pkgconfig/mirte_telemetrix.pc /home/xavier/Personal/ro47007_MDP/group7-epic-mirte-master-we-are-nr1/devel/lib/pkgconfig/mirte_telemetrix.pc
-/home/xavier/Personal/ro47007_MDP/group7-epic-mirte-master-we-are-nr1/devel/.private/mirte_telemetrix/share/mirte_telemetrix/cmake/mirte_telemetrixConfig-version.cmake /home/xavier/Personal/ro47007_MDP/group7-epic-mirte-master-we-are-nr1/devel/share/mirte_telemetrix/cmake/mirte_telemetrixConfig-version.cmake
-/home/xavier/Personal/ro47007_MDP/group7-epic-mirte-master-we-are-nr1/devel/.private/mirte_telemetrix/share/mirte_telemetrix/cmake/mirte_telemetrixConfig.cmake /home/xavier/Personal/ro47007_MDP/group7-epic-mirte-master-we-are-nr1/devel/share/mirte_telemetrix/cmake/mirte_telemetrixConfig.cmake

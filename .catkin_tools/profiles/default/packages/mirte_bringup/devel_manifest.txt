@@ -1,5 +1,0 @@
-mirte-ros-packages-mirte-master/mirte_bringup
-/home/xavier/Personal/ro47007_MDP/group7-epic-mirte-master-we-are-nr1/devel/.private/mirte_bringup/cmake.lock /home/xavier/Personal/ro47007_MDP/group7-epic-mirte-master-we-are-nr1/devel/./cmake.lock
-/home/xavier/Personal/ro47007_MDP/group7-epic-mirte-master-we-are-nr1/devel/.private/mirte_bringup/lib/pkgconfig/mirte_bringup.pc /home/xavier/Personal/ro47007_MDP/group7-epic-mirte-master-we-are-nr1/devel/lib/pkgconfig/mirte_bringup.pc
-/home/xavier/Personal/ro47007_MDP/group7-epic-mirte-master-we-are-nr1/devel/.private/mirte_bringup/share/mirte_bringup/cmake/mirte_bringupConfig.cmake /home/xavier/Personal/ro47007_MDP/group7-epic-mirte-master-we-are-nr1/devel/share/mirte_bringup/cmake/mirte_bringupConfig.cmake
-/home/xavier/Personal/ro47007_MDP/group7-epic-mirte-master-we-are-nr1/devel/.private/mirte_bringup/share/mirte_bringup/cmake/mirte_bringupConfig-version.cmake /home/xavier/Personal/ro47007_MDP/group7-epic-mirte-master-we-are-nr1/devel/share/mirte_bringup/cmake/mirte_bringupConfig-version.cmake
