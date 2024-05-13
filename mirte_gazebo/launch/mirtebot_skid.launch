@@ -5,8 +5,16 @@
     
   <group>
       <rosparam command="load" file="$(find mirte_description)/config/control_skiddiff.yaml"/>
-  <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find mirte_gazebo)/worlds/test_barn1/model.world"/> 
+      <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+      <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find mirte_gazebo)worlds/mirtebot.world"/> <!-- Note: the world_name is with respect to GAZEBO_RESOURCE_PATH environmental variable -->
+        <arg name="paused" value="false"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="true"/>
+        <arg name="recording" value="false"/>
+        <arg name="debug" value="false"/>
+      </include>
+
 
       <node pkg="slam_toolbox" type="async_slam_toolbox_node" name="slam_toolbox" output="screen">
         <rosparam command="load" file="$(find mirte_description)/config/mapper_params_online_async.yaml" />
