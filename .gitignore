@@ -6,3 +6,4 @@ build/
 devel/
 mirte_teleop/
 ridgeback_control/
+.catkin_tools/
