@@ -1,8 +1,0 @@
-prefix=/home/xavier/Personal/ro47007_MDP/group7-epic-mirte-master-we-are-nr1/devel/.private/mirte_base_control
-
-Name: mirte_base_control
-Description: Description of mirte_base_control
-Version: 0.1.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: roscpp std_msgs mirte_msgs message_runtime controller_manager hardware_interface trajectory_msgs

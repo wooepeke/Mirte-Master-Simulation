@@ -1,1 +1,0 @@
-/home/xavier/Personal/ro47007_MDP/group7-epic-mirte-master-we-are-nr1/devel/.private/mirte_msgs/lib/python3/dist-packages/mirte_msgs/msg/_IntensityDigital.py
