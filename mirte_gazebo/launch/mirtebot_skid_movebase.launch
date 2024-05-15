@@ -15,9 +15,8 @@
       </include>
   
   <group>
-      <node pkg="slam_toolbox" type="async_slam_toolbox_node" name="slam_toolbox" output="screen">
-        <rosparam command="load" file="$(find mirte_description)/config/mapper_params_online_async.yaml" />
-      </node>
+      <include file="$(find mirte_gazebo)/launch/slam_toolbox.launch">
+      </include>
       
       <param name="robot_description" command="$(find xacro)/xacro --inorder $(find mirte_description)/urdf/mirtebot.xacro"/>
       
