@@ -1,45 +1,61 @@
 <launch>
-
-  <!-- these are the arguments you can pass this launch file, for example paused:=true -->
-
-    
-      <rosparam command="load" file="$(find mirte_description)/config/control_skiddiff.yaml"/>
-      <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
-      <include file="$(find gazebo_ros)/launch/empty_world.launch">
-        <arg name="world_name" value="$(find mirte_gazebo)worlds/mirtebot.world"/> <!-- Note: the world_name is with respect to GAZEBO_RESOURCE_PATH environmental variable -->
-        <arg name="paused" value="false"/>
-        <arg name="use_sim_time" value="true"/>
-        <arg name="gui" value="true"/>
-        <arg name="recording" value="false"/>
-        <arg name="debug" value="false"/>
-      </include>
+  <!-- Set robot name and id values -->
+  <arg name="robot_name" default="mirtebot"/>
+  <arg name="id" default="0"/>
   
-  <group>
-      <include file="$(find mirte_gazebo)/launch/slam_toolbox.launch">
-      </include>
-      
-      <param name="robot_description" command="$(find xacro)/xacro --inorder $(find mirte_description)/urdf/mirtebot.xacro"/>
-      
-      <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model robot_base" />
-      
-      <node pkg="robot_state_publisher" type="robot_state_publisher"  name="robot_state_publisher">
-        <param name="publish_frequency" type="double" value="50.0" />
-      </node>
+  <!-- Create a unique robot id -->
+  <arg name="uid" value="$(arg robot_name)_$(arg id)"/>
+  
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find mirte_gazebo)worlds/mirtebot.world"/> <!-- Note: the world_name is with respect to GAZEBO_RESOURCE_PATH environmental variable -->
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="recording" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
 
-      <node name="controller_spawner" output="screen" pkg="controller_manager" type="spawner" args="joint_state_controller mobile_base_controller"/>
+  <group ns="$(arg uid)">
+    <rosparam command="load" file="$(find mirte_description)/config/control_skiddiff.yaml"/>
+        
+    <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find mirte_description)/urdf/mirtebot.xacro' robot_tf_prefix:=$(arg uid)"/>
+    
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" 
+      args="-urdf -model $(arg uid) -param robot_description " respawn="false" output="screen">
+    </node>
 
-      <!-- <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization" /> -->
+    <node pkg="robot_state_publisher" type="robot_state_publisher"  name="robot_state_publisher">
+      <param name="publish_frequency" type="double" value="50.0" />
+      <param name="tf_prefix" type="string" value="$(arg uid)" />
+    </node>
 
-      <node name="rviz" pkg="rviz" type="rviz" args="-d $(find mirte_description)/config/display.rviz" />
+    <include file="$(find mirte_gazebo)/launch/slam_toolbox.launch">
+    </include>
+
+    <node name="controller_spawner" output="screen" pkg="controller_manager"  type="spawner" args="joint_state_controller mobile_base_controller"/>
+
+    <node name="rviz" pkg="rviz" type="rviz" 
+      args="-d $(find mirte_description)/config/display.rviz" >
+    </node>
+
+      <!-- Local and global costmaps with movebase navigation points -->
+      <!-- <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+        <rosparam file="$(find mirte_2dnav)/config/costmap_common_params.yaml" command="load" ns="global_costmap" /> 
+        <rosparam file="$(find mirte_2dnav)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find mirte_2dnav)/config/local_costmap_params.yaml" command="load" />
+        <rosparam file="$(find mirte_2dnav)/config/global_costmap_params.yaml" command="load" /> 
+        <rosparam file="$(find mirte_2dnav)/config/base_local_planner_params.yaml" command="load" />
+        <remap from="cmd_vel" to="$(arg uid)/mobile_base_controller/cmd_vel"/>
+      </node> -->
   </group>
 
-  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-    <rosparam file="$(find mirte_2dnav)/config/costmap_common_params.yaml" command="load" ns="global_costmap" /> 
-    <rosparam file="$(find mirte_2dnav)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
-    <rosparam file="$(find mirte_2dnav)/config/local_costmap_params.yaml" command="load" />
-    <rosparam file="$(find mirte_2dnav)/config/global_costmap_params.yaml" command="load" /> 
-    <rosparam file="$(find mirte_2dnav)/config/base_local_planner_params.yaml" command="load" />
-    <remap from="cmd_vel" to="mobile_base_controller/cmd_vel"/>
- </node>
+
+<!-- Try to add some path planning -->
+  <!-- <arg name="map_path" default="$(find mirte_description)/slam_maps"/>
+  <arg name="map_file" default="test_map.yaml"/>
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_path)$(arg map_file)">
+      <param name="frame_id" value="map"/>
+  </node> -->
 
 </launch>

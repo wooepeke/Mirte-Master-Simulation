@@ -15,9 +15,9 @@
         <arg name="debug" value="false"/>
       </include>
 
-
       <node pkg="slam_toolbox" type="async_slam_toolbox_node" name="slam_toolbox" output="screen">
         <rosparam command="load" file="$(find mirte_description)/config/mapper_params_online_async.yaml" />
+        <param name="base_frame" value="base_link"/>
       </node>
       
       <param name="robot_description" command="$(find xacro)/xacro --inorder $(find mirte_description)/urdf/mirtebot.xacro"/>
