@@ -7,11 +7,12 @@ ceres_dogleg_type: TRADITIONAL_DOGLEG
 ceres_loss_function: None
 
 # ROS Parameters
-odom_frame: odom
+# odom_frame: odom
 map_frame: map
-base_frame: mirtebot_0/base_link
-scan_topic: mirtebot_0/scan
-mode: mapping #localization
+# base_frame: base_link
+# scan_topic: scan
+
+mode: localization #mapping 
 debug_logging: false
 throttle_scans: 1
 transform_publish_period: 0.02 #if 0 never publishes odometry

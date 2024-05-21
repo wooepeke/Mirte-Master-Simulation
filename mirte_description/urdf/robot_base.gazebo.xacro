@@ -105,12 +105,12 @@
       <alwaysOn>true</alwaysOn>
       <updateRate>1.0</updateRate>
       <cameraName>depth_camera_ir</cameraName>
-      <imageTopicName>/depth_camera/color/image_raw</imageTopicName>
-      <cameraInfoTopicName>/depth_camera/color/camera_info</cameraInfoTopicName>
-      <depthImageTopicName>/depth_camera/depth/image_raw</depthImageTopicName>
-      <depthImageInfoTopicName>/depth_camera/depth/camera_info</depthImageInfoTopicName>
-      <pointCloudTopicName>/depth_camera/depth/points</pointCloudTopicName>
-      <frameName>camera_link</frameName>
+      <imageTopicName>$(arg robot_tf_prefix)/depth_camera/color/image_raw</imageTopicName>
+      <cameraInfoTopicName>$(arg robot_tf_prefix)/depth_camera/color/camera_info</cameraInfoTopicName>
+      <depthImageTopicName>$(arg robot_tf_prefix)/depth_camera/depth/image_raw</depthImageTopicName>
+      <depthImageInfoTopicName>$(arg robot_tf_prefix)/depth_camera/depth/camera_info</depthImageInfoTopicName>
+      <pointCloudTopicName>$(arg robot_tf_prefix)/depth_camera/depth/points</pointCloudTopicName>
+      <frameName>$(arg robot_tf_prefix)/camera_link</frameName>
       <pointCloudCutoff>0.5</pointCloudCutoff>
       <pointCloudCutoffMax>3.0</pointCloudCutoffMax>
       <distortionK1>0.00000001</distortionK1>
@@ -173,10 +173,10 @@
       <plugin name="$(arg robot_tf_prefix)_diff_drive_controller" filename="libgazebo_ros_diff_drive.so">
         <commandTopic>cmd_vel</commandTopic>
         <odometryTopic>odom</odometryTopic>
-        <odometryFrame>odom</odometryFrame>
+        <odometryFrame>$(arg robot_tf_prefix)/odom</odometryFrame>
         <odometrySource>map</odometrySource>
         <publishOdomTF>true</publishOdomTF>
-        <robotBaseFrame>base_link</robotBaseFrame>
+        <robotBaseFrame>$(arg robot_tf_prefix)/base_link</robotBaseFrame>
         <publishWheelTF>false</publishWheelTF>
         <publishTf>true</publishTf>
         <publishWheelJointState>true</publishWheelJointState>

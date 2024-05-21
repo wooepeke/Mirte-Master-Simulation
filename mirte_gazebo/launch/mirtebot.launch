@@ -5,7 +5,7 @@
     <arg name="initial_pose_yaw" default="0"/>
     <arg name="robot_name" default="mirtebot"/>
     <arg name="id" default="0"/>
-  
+
     <arg name="uid" value="$(arg robot_name)_$(arg id)"/>    
     
     <arg name="cmd_vel_topic" default="$(arg uid)/mobile_base_controller/cmd_vel" />
@@ -46,13 +46,31 @@
         <rosparam file="$(find mirte_2dnav)/config/local_costmap_params.yaml" command="load" />
         <rosparam file="$(find mirte_2dnav)/config/global_costmap_params.yaml" command="load" /> 
         <rosparam file="$(find mirte_2dnav)/config/base_local_planner_params.yaml" command="load" />
+        
+        <!-- TODO, fix move_base movement stuff, see github -->
         <param name="global_costmap/robot_base_frame" value="$(arg uid)/base_link" />
+        <param name="global_costmap/scan/sensor_frame" value="$(arg uid)/lidar_link" />
+        <param name="global_costmap/obstacle_layer/scan/sensor_frame" value="$(arg uid)/lidar_link" />
+        
+        <param name="local_costmap/global_frame" value="$(arg uid)/odom" />
+        <param name="local_costmap/robot_base_frame" value="$(arg uid)/base_link" />
+
         <param name="laser_scan_sensor/lidar_link" value="$(arg uid)/lidar_link" />
+        <param name="laser_scan_sensor/topic" value="$(arg uid)/scan" />
     </node>
 
-  <include file="$(find mirte_gazebo)/launch/slam_toolbox.launch">
+  <!-- <include file="$(find mirte_gazebo)/launch/slam_toolbox.launch">
       <arg name="uid" value="$(arg robot_name)_$(arg id)"/>
       <param name="mode" value="localization"/>
+  </include> -->
+
+  <include file="$(find mirte_gazebo)/launch/amcl.launch">
+    <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
+    <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
+    <arg name="initial_pose_a" value="$(arg initial_pose_yaw)"/>
+    <arg name="odom_frame_id" value="$(arg uid)/odom"/>
+    <arg name="base_frame_id" value="$(arg uid)/base_link"/>
+    <arg name="scan_topic"    value="/$(arg uid)/scan"/>
   </include>
 
 </launch>
