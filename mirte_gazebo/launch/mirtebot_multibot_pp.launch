@@ -1,0 +1,58 @@
+<launch>
+  <arg name="coverage_area_offset" default="-2.5 -2.5 0 0 0 0"/>
+  <arg name="coverage_area_size_x" default="10"/>
+  <arg name="coverage_area_size_y" default="10"/>
+  <arg name="target_x_vel" default="0.5"/>
+  <arg name="target_yaw_vel" default="0.4"/>
+  <arg name="rviz" default="true"/>
+
+  <!-- Setup map variables -->
+  <arg name="map_path" default="$(find mirte_description)/slam_maps"/>
+  <arg name="map_file" default="test_map.yaml"/>
+
+  <!-- Set robot name and id values -->
+  <arg name="frame" default="mirtebot"/>
+  <arg name="id" default="0"/>
+  
+  <!-- Create a unique robot id -->
+  <arg name="uid" value="$(arg frame)_$(arg id)"/>
+  
+  <!-- Setup map server -->
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_path)/$(arg map_file)">
+      <param name="frame_id" value="map"/>
+  </node>
+  
+  <remap from="map" to="/map"/>
+
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find mirte_gazebo)worlds/mirtebot.world"/> <!-- Note: the world_name is with respect to GAZEBO_RESOURCE_PATH environmental variable -->
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="recording" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+  <!-- ########################## Global path planning startup ########################## -->
+  <!--    Computes number of agents required from map (Can set this property differently later in the file)-->
+  <include file="$(find full_coverage_path_planner)/launch/optimizer.launch"/>
+
+  <!--    Compute coverage path from map, divide path for each agent -->
+  <include file="$(find full_coverage_path_planner)/launch/path_planner.launch"/>
+
+  <!--    Waits for number of agents and waypoints for each agent, then launches the entire stack for each agent-->
+  <node pkg="full_coverage_path_planner" type="multi_robot_bringup.py" name="multi_robot_bringup" clear_params="true"
+        required="true" output="screen">
+      <param name="robot_namespace" value="mirtebot"/>
+  </node>
+
+  <!-- ##########################   Global path planning end   ########################## -->
+
+
+  <!-- Load rviz config -->
+  <node name="rviz" pkg="rviz" type="rviz" 
+    args="-d $(find mirte_description)/config/display.rviz" >
+  </node>
+
+</launch>

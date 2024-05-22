@@ -1,0 +1,202 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robot_base">
+  <xacro:property name="set_mu1" value="0.5" />
+  <xacro:property name="set_mu2" value="0.5" />
+  <xacro:property name="set_kp" value="1000000" />
+  <xacro:property name="set_kd" value="10000" />
+  <xacro:arg name="robot_tf_prefix" default=""/>
+
+
+   <gazebo reference="base_link">
+       <material>Gazebo/Black</material>
+   </gazebo>
+
+   <gazebo reference="front_left_wheel_link">
+       <mu1>${set_mu1}</mu1>
+       <mu2>${set_mu2}</mu2>
+       <kp>${set_kp}</kp>
+       <kd>${set_kd}</kd>       
+       <material>Gazebo/Orange</material>
+   </gazebo>
+
+   <gazebo reference="rear_left_wheel_link">
+       <mu1>${set_mu1}</mu1>
+       <mu2>${set_mu2}</mu2>
+       <kp>${set_kp}</kp>
+       <kd>${set_kd}</kd>
+       <material>Gazebo/Orange</material>
+   </gazebo>
+
+
+   <gazebo reference="front_right_wheel_link">
+       <mu1>${set_mu1}</mu1>
+       <mu2>${set_mu2}</mu2>
+       <kp>${set_kp}</kp>
+       <kd>${set_kd}</kd>       
+       <material>Gazebo/Orange</material>
+   </gazebo>
+
+
+   <gazebo reference="rear_right_wheel_link">
+       <mu1>${set_mu1}</mu1>
+       <mu2>${set_mu2}</mu2>
+       <kp>${set_kp}</kp>
+       <kd>${set_kd}</kd>       
+       <material>Gazebo/Orange</material>
+   </gazebo>
+
+<!--########################### Lidar sensor ###########################################-->
+<gazebo reference="lidar_link">
+        <sensor type="ray" name="lidar_sensor">
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>true</visualize>
+        <update_rate>500</update_rate>
+        <ray>
+            <scan>
+            <horizontal>
+                <samples>719</samples>
+                <resolution>1</resolution>
+                <min_angle>-3.1415</min_angle>
+                <max_angle>3.1415</max_angle>
+            </horizontal>
+            </scan>
+            <range>
+            <min>0.30</min>
+            <max>10.0</max>
+            <resolution>0.01</resolution>
+            </range>
+            <noise>
+            <type>gaussian</type>
+            <!-- Noise parameters based on published spec for Hokuyo laser
+                achieving "+-30mm" accuracy at range < 10m.  A mean of 0.0m and
+                stddev of 0.01m will put 99.7% of samples within 0.03m of the true
+                reading. -->
+            <mean>0.0</mean>
+            <stddev>0.01</stddev>
+            </noise>
+        </ray>
+        <plugin name="lidar_sensor_controller" filename="libgazebo_ros_laser.so">
+            <topicName>scan</topicName>
+            <frameName>$(arg robot_tf_prefix)/lidar_link</frameName>
+        </plugin>
+        </sensor>
+</gazebo>
+
+<!--########################### Camera sensor ###########################################-->
+<gazebo reference="camera_link">
+  <sensor name="camera_link_camera" type="depth">
+    <visualize>true</visualize>
+  
+    <update_rate>20</update_rate>
+    <camera>
+      <horizontal_fov>1.047198</horizontal_fov>
+      <image>
+        <width>640</width>
+        <height>480</height>
+        <format>R8G8B8</format>
+      </image>
+      <clip>
+        <near>0.05</near>
+        <far>3</far>
+      </clip>
+    </camera>
+    <plugin name="camera_link_controller" filename="libgazebo_ros_openni_kinect.so">
+      <baseline>0.2</baseline>
+      <alwaysOn>true</alwaysOn>
+      <updateRate>1.0</updateRate>
+      <cameraName>depth_camera_ir</cameraName>
+      <imageTopicName>$(arg robot_tf_prefix)/depth_camera/color/image_raw</imageTopicName>
+      <cameraInfoTopicName>$(arg robot_tf_prefix)/depth_camera/color/camera_info</cameraInfoTopicName>
+      <depthImageTopicName>$(arg robot_tf_prefix)/depth_camera/depth/image_raw</depthImageTopicName>
+      <depthImageInfoTopicName>$(arg robot_tf_prefix)/depth_camera/depth/camera_info</depthImageInfoTopicName>
+      <pointCloudTopicName>$(arg robot_tf_prefix)/depth_camera/depth/points</pointCloudTopicName>
+      <frameName>$(arg robot_tf_prefix)/camera_link</frameName>
+      <pointCloudCutoff>0.5</pointCloudCutoff>
+      <pointCloudCutoffMax>3.0</pointCloudCutoffMax>
+      <distortionK1>0.00000001</distortionK1>
+      <distortionK2>0.00000001</distortionK2>
+      <distortionK3>0.00000001</distortionK3>
+      <distortionT1>0.00000001</distortionT1>
+      <distortionT2>0.00000001</distortionT2>
+      <CxPrime>0</CxPrime>
+      <Cx>0</Cx>
+      <Cy>0</Cy>
+      <focalLength>0</focalLength>
+      <hackBaseline>0</hackBaseline>
+    </plugin>
+  </sensor>
+</gazebo>
+
+
+<!--################################ Controllers ######################################-->
+   <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>$(arg robot_tf_prefix)</robotNamespace>
+            <controlPeriod>0.001</controlPeriod>
+            <legacyModeNS>false</legacyModeNS>
+       </plugin>
+        
+       <!-- <plugin name="mecanum_controller" filename="libgazebo_ros_mecanum_drive.so">
+            <robotNamespace>/</robotNamespace>
+            <legacyMode>false</legacyMode>
+            <alwaysOn>true</alwaysOn>
+
+            <commandTopic>cmd_vel</commandTopic>
+
+            <odometryTopic>odom</odometryTopic>
+            <odometryFrame>map</odometryFrame>
+            <odometrySource>world</odometrySource>
+
+            <wheelSeparation>0.256</wheelSeparation>
+            <wheelDiameter>0.102</wheelDiameter>
+
+            <robotBaseFrame>base_link</robotBaseFrame>
+            <updateRate>500.0</updateRate>
+
+            <LeftRear>rear_left_wheel_joint</LeftRear>
+            <LeftFront>front_left_wheel_joint</LeftFront>
+            <RightFront>front_right_wheel_joint</RightFront>
+            <RightRear>rear_right_wheel_joint</RightRear>
+
+            <publishWheelTF>false</publishWheelTF>
+            <publishWheelJointState>true</publishWheelJointState>
+
+            <WheelTorque>1</WheelTorque>
+            <wheelAcceleration>2</wheelAcceleration>
+
+            <publishTf>1</publishTf>
+
+            <isRollerModel>true</isRollerModel>
+
+       </plugin> -->
+
+      <plugin name="$(arg robot_tf_prefix)_diff_drive_controller" filename="libgazebo_ros_diff_drive.so">
+        <commandTopic>cmd_vel</commandTopic>
+        <odometryTopic>odom</odometryTopic>
+        <odometryFrame>$(arg robot_tf_prefix)/odom</odometryFrame>
+        <odometrySource>map</odometrySource>
+        <publishOdomTF>true</publishOdomTF>
+        <robotBaseFrame>$(arg robot_tf_prefix)/base_link</robotBaseFrame>
+        <publishWheelTF>false</publishWheelTF>
+        <publishTf>true</publishTf>
+        <publishWheelJointState>true</publishWheelJointState>
+        <legacyMode>false</legacyMode>
+        <updateRate>50</updateRate>
+        <leftJoint>front_left_wheel_joint, rear_left_wheel_joint</leftJoint>
+        <rightJoint>front_right_wheel_joint, rear_right_wheel_joint</rightJoint>
+        <wheelSeparation>0.256</wheelSeparation>
+        <wheelDiameter>0.102</wheelDiameter>
+        <wheelAcceleration>1</wheelAcceleration>
+        <wheelTorque>10</wheelTorque>
+        <rosDebugLevel>na</rosDebugLevel>
+
+      </plugin>
+
+   </gazebo>
+
+</robot>
+
+
+
+
+
