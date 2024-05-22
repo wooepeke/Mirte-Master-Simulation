@@ -34,35 +34,18 @@
     <arg name="debug" value="false"/>
   </include>
 
-  <group ns="$(arg frame)_$(arg id)">
-    <include file="$(find mirte_gazebo)/launch/mirtebot.launch" >
-      <arg name="initial_pose_x" value="0" />
-      <arg name="initial_pose_y" value="0" />
-      <arg name="initial_pose_z" value="0" />
-      <arg name="initial_pose_yaw" value="0" />
-      <arg name="frame"  value="$(arg frame)" />
-      <arg name="id" value="$(arg id)" />
-    </include>
-  </group>
-  
-  <group ns="$(arg frame)_1">
-    <include file="$(find mirte_gazebo)/launch/mirtebot.launch" >
-      <arg name="initial_pose_x" value="1" />
-      <arg name="initial_pose_y" value="1" />
-      <arg name="initial_pose_z" value="0" />
-      <arg name="initial_pose_yaw" value="0" />
-      <arg name="frame" value="mirtebot" />
-      <arg name="id" value="1" />
-    </include>
-  </group>
-
-
   <!-- ########################## Global path planning startup ########################## -->
   <!--    Computes number of agents required from map (Can set this property differently later in the file)-->
   <include file="$(find full_coverage_path_planner)/launch/optimizer.launch"/>
 
   <!--    Compute coverage path from map, divide path for each agent -->
   <include file="$(find full_coverage_path_planner)/launch/path_planner.launch"/>
+
+  <!--    Waits for number of agents and waypoints for each agent, then launches the entire stack for each agent-->
+  <node pkg="full_coverage_path_planner" type="multi_robot_bringup.py" name="multi_robot_bringup" clear_params="true"
+        required="true" output="screen">
+      <param name="robot_namespace" value="mirtebot"/>
+  </node>
 
   <!-- ##########################   Global path planning end   ########################## -->
 

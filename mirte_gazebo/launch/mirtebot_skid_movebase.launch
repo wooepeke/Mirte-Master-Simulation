@@ -4,11 +4,11 @@
   <arg name="map_file" default="test_map.yaml"/>
 
   <!-- Set robot name and id values -->
-  <arg name="robot_name" default="mirtebot"/>
+  <arg name="frame" default="mirtebot"/>
   <arg name="id" default="0"/>
   
   <!-- Create a unique robot id -->
-  <arg name="uid" value="$(arg robot_name)_$(arg id)"/>
+  <arg name="uid" value="$(arg frame)_$(arg id)"/>
   
   <!-- Setup map server -->
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_path)/$(arg map_file)">
@@ -27,13 +27,13 @@
     <arg name="debug" value="false"/>
   </include>
 
-  <group ns="$(arg robot_name)_$(arg id)">
+  <group ns="$(arg frame)_$(arg id)">
     <include file="$(find mirte_gazebo)/launch/mirtebot.launch" >
       <arg name="initial_pose_x" value="0" />
       <arg name="initial_pose_y" value="0" />
       <arg name="initial_pose_z" value="0" />
       <arg name="initial_pose_yaw" value="0" />
-      <arg name="robot_name"  value="$(arg robot_name)" />
+      <arg name="frame"  value="$(arg frame)" />
       <arg name="id" value="$(arg id)" />
     </include>
   </group>

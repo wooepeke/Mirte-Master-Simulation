@@ -3,10 +3,10 @@
     <arg name="initial_pose_y" default="0"/>
     <arg name="initial_pose_z" default="0"/>
     <arg name="initial_pose_yaw" default="0"/>
-    <arg name="robot_name" default="mirtebot"/>
+    <arg name="frame" default="mirtebot"/>
     <arg name="id" default="0"/>
 
-    <arg name="uid" value="$(arg robot_name)_$(arg id)"/>    
+    <arg name="uid" value="$(arg frame)_$(arg id)"/>    
     
     <arg name="cmd_vel_topic" default="$(arg uid)/mobile_base_controller/cmd_vel" />
     <arg name="odom_topic" default="odom" />
@@ -36,41 +36,77 @@
     <!-- Spawn a controller node for a certain mirtebot, make sure to remap the frame ids -->
     <node name="controller_spawner" output="screen" pkg="controller_manager"  type="spawner" args="joint_state_controller mobile_base_controller">
         <param name="base_frame_id" value="$(arg uid)/base_link" />
-        <param name="odom_frame_id" value="$(arg uid)/odom" />        
+        <param name="odom_frame_id" value="$(arg uid)/odom" />
     </node>
 
     <!-- Local and global costmaps with movebase navigation points -->
-    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">     
+        <param name="base_global_planner" value="full_coverage_path_planner/BoustrophedonSTC"/> 
         <rosparam file="$(find mirte_2dnav)/config/costmap_common_params.yaml" command="load" ns="global_costmap" /> 
         <rosparam file="$(find mirte_2dnav)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
         <rosparam file="$(find mirte_2dnav)/config/local_costmap_params.yaml" command="load" />
         <rosparam file="$(find mirte_2dnav)/config/global_costmap_params.yaml" command="load" /> 
         <rosparam file="$(find mirte_2dnav)/config/base_local_planner_params.yaml" command="load" />
         
-        <!-- TODO, fix move_base movement stuff, see github -->
         <param name="global_costmap/robot_base_frame" value="$(arg uid)/base_link" />
-        <param name="global_costmap/scan/sensor_frame" value="$(arg uid)/lidar_link" />
-        <param name="global_costmap/obstacle_layer/scan/sensor_frame" value="$(arg uid)/lidar_link" />
+        <param name="global_costmap/laser_scan_sensor/sensor_frame" value="$(arg uid)/lidar_link" />
+        <param name="global_costmap/obstacle_layer/laser_scan_sensor/sensor_frame" value="$(arg uid)/lidar_link" />
+        <param name="global_costmap/laser_scan_sensor/topic" value="/$(arg uid)/scan" />
         
         <param name="local_costmap/global_frame" value="$(arg uid)/odom" />
         <param name="local_costmap/robot_base_frame" value="$(arg uid)/base_link" />
+        <param name="local_costmap/laser_scan_sensor/sensor_frame" value="$(arg uid)/lidar_link" />
+        <param name="local_costmap/obstacle_layer/laser_scan_sensor/sensor_frame" value="$(arg uid)/lidar_link" />
+        <param name="local_costmap/laser_scan_sensor/topic" value="/$(arg uid)/scan" />
 
-        <param name="laser_scan_sensor/lidar_link" value="$(arg uid)/lidar_link" />
-        <param name="laser_scan_sensor/topic" value="$(arg uid)/scan" />
+        <remap from="cmd_vel" to="mobile_base_controller/cmd_vel" />
     </node>
 
-  <!-- <include file="$(find mirte_gazebo)/launch/slam_toolbox.launch">
-      <arg name="uid" value="$(arg robot_name)_$(arg id)"/>
-      <param name="mode" value="localization"/>
-  </include> -->
+  <include file="$(find mirte_gazebo)/launch/slam_toolbox.launch">
+      <arg name="uid" value="$(arg frame)_$(arg id)"/>
+      <arg name="x_pos" value="$(arg initial_pose_x)"/>
+      <arg name="y_pos" value="$(arg initial_pose_y)"/>
+  </include>
 
-  <include file="$(find mirte_gazebo)/launch/amcl.launch">
+  <!-- <include file="$(find mirte_gazebo)/launch/amcl.launch">
     <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
     <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
     <arg name="initial_pose_a" value="$(arg initial_pose_yaw)"/>
     <arg name="odom_frame_id" value="$(arg uid)/odom"/>
     <arg name="base_frame_id" value="$(arg uid)/base_link"/>
     <arg name="scan_topic"    value="/$(arg uid)/scan"/>
-  </include>
+  </include> -->
+
+  <!-- ########################## Global path planning startup ########################## -->
+  <node name="interpolator" pkg="tracking_pid" type="path_interpolator">
+      <param name="target_x_vel" value="0.25"/>
+      <param name="target_yaw_vel" value="0.5"/>
+      <remap from="path" to="waypoints"/>
+  </node>
+
+  <!--Tracking_pid tries to get the robot as close to it's goal point as possible-->
+  <node name="controller" pkg="tracking_pid" type="controller" output="screen">
+      <remap from="move_base/cmd_vel" to="mobile_base_controller/cmd_vel"/>
+      <remap from="local_trajectory" to="trajectory"/>
+      <param name="controller_debug_enabled" value="True"/>
+      <param name="track_base_link" value="true"/>
+      <param name="base_link_frame" value="$(arg uid)/base_link"/>
+
+      <param name="l" value="0.5"/>
+      <param name="Ki_long" value="0.0"/>
+      <param name="Kp_long" value="2.0"/>
+      <param name="Kd_long" value="0.5"/>
+      <param name="Ki_lat" value="0.0"/>
+      <param name="Kp_lat" value="4.0"/>
+      <param name="Kd_lat" value="0.3"/>
+  </node>
+  
+  <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="map_to_$(arg uid)_cov_map_tf_broadcaster"
+        args="0 0 0 0 0 0 map $(arg uid)/coverage_grid"/>
+
+  <include file="$(find full_coverage_path_planner)/launch/coverage_progress.launch">
+      <arg name="coverage_frame" value="$(arg uid)/base_link"/>
+      <arg name="map_frame" value="$(arg uid)/coverage_grid"/>
+  </include> -->
 
 </launch>
