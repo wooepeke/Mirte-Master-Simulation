@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robot_base" >
+<xacro:property name="radius" value="0.2" />
+<xacro:property name="length" value="0.1" />
+
+  <link name="base_link">
+    <inertial>
+      <origin
+        xyz="-9.5466093050743E-05 0.0097011286361631 -0.00311173658184887"
+        rpy="0 0 0" />
+      <mass
+        value="2.50553121334708" />
+      <inertia
+        ixx="0.0120355167475054"
+        ixy="1.25086940252891E-06"
+        ixz="-7.00449395352778E-07"
+        iyy="0.008996074825019"
+        iyz="-0.000179778730763244"
+        izz="0.0202212703189508" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mirtebot_description/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="base_color">
+        <color
+          rgba="255 0 71 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://mirtebot_description/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link
+    name="front_left_wheel_link">
+    <inertial>
+      <origin
+        xyz="-1.49494180923249E-10 2.75265386873169E-10 -0.029064107204112"
+        rpy="0 0 0" />
+      <mass
+        value="0.266614983225976" />
+      <inertia
+        ixx="8.05457942768499E-05"
+        ixy="2.80562638415747E-15"
+        ixz="1.08840849250867E-14"
+        iyy="8.05457942711438E-05"
+        iyz="1.12129517998485E-14"
+        izz="9.31956038960016E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://mirtebot_description/meshes/front_left_wheel_link.STL" />
+      </geometry>
+      <material
+        name="wheel_color">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <!-- <cylinder radius="${radius}" length="${length}" /> -->
+        <mesh filename="package://mirtebot_description/meshes/front_left_wheel_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link
+    name="front_right_wheel_link">
+    <inertial>
+      <origin
+        xyz="-1.57737850559059E-10 2.37454618468025E-10 0.0289358927958864"
+        rpy="0 0 0" />
+      <mass
+        value="0.266614983226051" />
+      <inertia
+        ixx="8.05457942743105E-05"
+        ixy="-5.05293777739585E-15"
+        ixz="7.7499694178566E-14"
+        iyy="8.05457942724649E-05"
+        iyz="-1.4707766056978E-15"
+        izz="9.31956038947894E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://mirtebot_description/meshes/front_right_wheel_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <!-- <cylinder radius="${radius}" length="${length}" /> -->
+        <mesh filename="package://mirtebot_description/meshes/front_right_wheel_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link
+    name="rear_right_wheel_link">
+    <inertial>
+      <origin
+        xyz="-1.43943829078452E-10 2.75980814590238E-10 0.0289358927958911"
+        rpy="0 0 0" />
+      <mass
+        value="0.26661498322592" />
+      <inertia
+        ixx="8.05457942776311E-05"
+        ixy="1.1770607004271E-15"
+        ixz="9.81908982424025E-15"
+        iyy="8.05457942705181E-05"
+        iyz="1.92979557722582E-14"
+        izz="9.3195603896201E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mirtebot_description/meshes/rear_right_wheel_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <!-- <cylinder radius="${radius}" length="${length}" /> -->
+        <mesh filename="package://mirtebot_description/meshes/rear_right_wheel_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link
+    name="rear_left_wheel_link">
+    <inertial>
+      <origin
+        xyz="-1.57737461981E-10 2.37452502105384E-10 -0.0290641072041141"
+        rpy="0 0 0" />
+      <mass
+        value="0.266614983226052" />
+      <inertia
+        ixx="8.05457942743428E-05"
+        ixy="-5.04345947871607E-15"
+        ixz="7.74983446286353E-14"
+        iyy="8.05457942724871E-05"
+        iyz="-1.48627657597067E-15"
+        izz="9.31956038948212E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://mirtebot_description/meshes/rear_left_wheel_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <!-- <cylinder radius="${radius}" length="${length}" /> -->
+        <mesh filename="package://mirtebot_description/meshes/rear_left_wheel_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+<!--########################## ROBOT JOINTS ############################################-->
+  <!-- Robot Footprint -->
+ 
+  <joint
+    name="rear_right_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="-0.0989999999999999 0.085 -0.0455"
+      rpy="1.5707963267949 0.153372062778815 -1.5707963267949" />
+    <parent
+      link="base_link" />
+    <child
+      link="rear_right_wheel_link" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+
+  <joint
+    name="front_right_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="-0.0990000000000002 -0.085 -0.0455"
+      rpy="1.57079632679489 -0.143157510871617 -1.5707963267949" />
+    <parent
+      link="base_link" />
+    <child
+      link="front_right_wheel_link" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+
+   <joint
+    name="front_left_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="0.0989999999999998 -0.085 -0.0455"
+      rpy="1.5707963267949 0.13150997320629 -1.5707963267949" />
+    <parent
+      link="base_link" />
+    <child
+      link="front_left_wheel_link" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+ 
+  <joint
+    name="rear_left_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="0.0989999999999995 0.085 -0.0455"
+      rpy="1.57079632679489 -0.143157510871617 -1.5707963267949" />
+    <parent
+      link="base_link" />
+    <child
+      link="rear_left_wheel_link" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+
+<!--########################## BASE TRANSMISSIONS ############################################-->
+  <transmission name="front_left_wheel_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="front_left_wheel_joint">
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="front_left_wheel_actuator">
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+  </transmission>  
+  
+  <transmission name="front_right_wheel_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="front_right_wheel_joint">
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="front_right_wheel_actuator">
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+  </transmission>
+
+  <transmission name="rear_right_wheel_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="rear_right_wheel_joint">
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="rear_right_wheel_actuator">
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+  <transmission name="rear_left_wheel_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="rear_left_wheel_joint">
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="rear_left_wheel_actuator">
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+<!--########################## END ############################################-->
+
+
+  <!-- Could Add this later!! idk what to do with this -->
+
+  <!-- <link name="imu_link">
+    <inertial>
+      <mass value="0.001"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-09" ixy="0.0" ixz="0.0" iyy="1e-09" iyz="0.0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <joint name="imu_joint" type="fixed">
+    <parent link="chassis_link" />
+    <child link="imu_link" />
+    <origin xyz="-1.49494180923249E-10 2.75265386873169E-10 -0.029064107204112" rpy="0 0 0"/>
+  </joint> -->
+
+</robot>
