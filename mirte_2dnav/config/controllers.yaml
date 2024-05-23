@@ -1,6 +1,8 @@
 controllers:
   - name: 'tracking_pid'
     type: 'tracking_pid/TrackingPidLocalPlanner'
+  - name: 'diff_drive_controller'
+    type: 'diff_drive_controller/DiffDriveController'
 
 controller:
   holonomic_robot: false
