@@ -4,3 +4,6 @@ planners:
 
   -name: 'DWAPlannerROS'
    type: 'dwa_local_planner/DWAPlannerROS'
+
+  -name: 'TEBPlannerROS'
+   type: 'teb_local_planner/TebLocalPlannerROS'

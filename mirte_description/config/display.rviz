@@ -6,9 +6,9 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
-        - /TF1/Frames1
+        - /LaserScan1
         - /mirtebot_0_path1
-        - /mirtebot_1_path1
+        - /teb_mirtebot_01
       Splitter Ratio: 0.5
     Tree Height: 1079
   - Class: rviz/Selection
@@ -203,12 +203,44 @@ Visualization Manager:
       Use rainbow: true
       Value: true
     - Class: rviz/TF
-      Enabled: false
+      Enabled: true
       Filter (blacklist): ""
       Filter (whitelist): ""
       Frame Timeout: 15
       Frames:
         All Enabled: false
+        map:
+          Value: false
+        mirtebot_0/base_link:
+          Value: true
+        mirtebot_0/camera_link:
+          Value: true
+        mirtebot_0/coverage_grid:
+          Value: true
+        mirtebot_0/flag_link:
+          Value: true
+        mirtebot_0/front_left_ultrasound_link:
+          Value: true
+        mirtebot_0/front_left_wheel_link:
+          Value: true
+        mirtebot_0/front_right_ultrasound_link:
+          Value: true
+        mirtebot_0/front_right_wheel_link:
+          Value: true
+        mirtebot_0/lidar_link:
+          Value: true
+        mirtebot_0/map:
+          Value: true
+        mirtebot_0/odom:
+          Value: true
+        mirtebot_0/rear_left_ultrasound_link:
+          Value: true
+        mirtebot_0/rear_left_wheel_link:
+          Value: true
+        mirtebot_0/rear_right_ultrasound_link:
+          Value: true
+        mirtebot_0/rear_right_wheel_link:
+          Value: true
       Marker Alpha: 1
       Marker Scale: 1
       Name: TF
@@ -216,9 +248,37 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        {}
+        map:
+          mirtebot_0/coverage_grid:
+            {}
+          mirtebot_0/map:
+            {}
+          mirtebot_0/odom:
+            mirtebot_0/base_link:
+              mirtebot_0/camera_link:
+                {}
+              mirtebot_0/flag_link:
+                {}
+              mirtebot_0/front_left_ultrasound_link:
+                {}
+              mirtebot_0/front_left_wheel_link:
+                {}
+              mirtebot_0/front_right_ultrasound_link:
+                {}
+              mirtebot_0/front_right_wheel_link:
+                {}
+              mirtebot_0/lidar_link:
+                {}
+              mirtebot_0/rear_left_ultrasound_link:
+                {}
+              mirtebot_0/rear_left_wheel_link:
+                {}
+              mirtebot_0/rear_right_ultrasound_link:
+                {}
+              mirtebot_0/rear_right_wheel_link:
+                {}
       Update Interval: 0
-      Value: false
+      Value: true
     - Alpha: 0.699999988079071
       Class: rviz/Map
       Color Scheme: map
@@ -234,8 +294,18 @@ Visualization Manager:
       Color Scheme: map
       Draw Behind: false
       Enabled: true
-      Name: Map
+      Name: mirtebot_0-localmap
       Topic: /mirtebot_0/move_base/local_costmap/costmap
+      Unreliable: false
+      Use Timestamp: false
+      Value: true
+    - Alpha: 0.699999988079071
+      Class: rviz/Map
+      Color Scheme: map
+      Draw Behind: false
+      Enabled: true
+      Name: mirtebot_1-localmap
+      Topic: /mirtebot_1/move_base/local_costmap/costmap
       Unreliable: false
       Use Timestamp: false
       Value: true
@@ -260,7 +330,7 @@ Visualization Manager:
       Radius: 0.029999999329447746
       Shaft Diameter: 0.10000000149011612
       Shaft Length: 0.10000000149011612
-      Topic: /mirtebot_0/waypoints
+      Topic: /boustrophedon/path
       Unreliable: false
       Value: true
     - Alpha: 1
@@ -284,9 +354,33 @@ Visualization Manager:
       Radius: 0.029999999329447746
       Shaft Diameter: 0.10000000149011612
       Shaft Length: 0.10000000149011612
-      Topic: /mirtebot_0/move_base/BoustrophedonSTC/plan
+      Topic: /mirtebot_1/waypoints
       Unreliable: false
       Value: false
+    - Alpha: 1
+      Buffer Length: 1
+      Class: rviz/Path
+      Color: 25; 255; 0
+      Enabled: true
+      Head Diameter: 0.30000001192092896
+      Head Length: 0.20000000298023224
+      Length: 0.30000001192092896
+      Line Style: Lines
+      Line Width: 0.029999999329447746
+      Name: teb_mirtebot_0
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Pose Color: 255; 85; 255
+      Pose Style: None
+      Queue Size: 10
+      Radius: 0.029999999329447746
+      Shaft Diameter: 0.10000000149011612
+      Shaft Length: 0.10000000149011612
+      Topic: /mirtebot_0/move_base/TebLocalPlannerROS/local_plan
+      Unreliable: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -315,7 +409,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 15.763023376464844
+      Distance: 21.474895477294922
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -323,17 +417,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 0.42135903239250183
-        Y: -0.0386570580303669
-        Z: -0.4398922622203827
+        X: 0.40985068678855896
+        Y: -0.1035112515091896
+        Z: -0.4122762680053711
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.165399193763733
+      Pitch: 0.870398998260498
       Target Frame: <Fixed Frame>
-      Yaw: 1.610397219657898
+      Yaw: 1.8353970050811768
     Saved: ~
 Window Geometry:
   Displays:

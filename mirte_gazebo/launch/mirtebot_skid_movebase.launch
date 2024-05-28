@@ -27,16 +27,14 @@
     <arg name="debug" value="false"/>
   </include>
 
-  <group ns="$(arg frame)_$(arg id)">
-    <include file="$(find mirte_gazebo)/launch/mirtebot.launch" >
-      <arg name="initial_pose_x" value="0" />
-      <arg name="initial_pose_y" value="0" />
-      <arg name="initial_pose_z" value="0" />
-      <arg name="initial_pose_yaw" value="0" />
-      <arg name="frame"  value="$(arg frame)" />
-      <arg name="id" value="$(arg id)" />
-    </include>
-  </group>
+  <include file="$(find mirte_gazebo)/launch/mirtebot.launch" >
+    <arg name="x_pos" value="0" />
+    <arg name="y_pos" value="0" />
+    <arg name="z_pos" value="0" />
+    <arg name="yaw" value="0" />
+    <arg name="frame"  value="$(arg frame)" />
+    <arg name="id" value="$(arg id)" />
+  </include>
 
   <!-- ########################################## Mapping ############################################3 -->
   <!--    Computes number of agents required from map-->
@@ -60,6 +58,7 @@
         clear_params="true" output="screen">
       <param name="static_map_topic" value="map"/>
       <param name="coverage_map_topic" value="coverage_grid_merged"/>
+      <param name="robot_namespace" value="mirtebot"/>
   </node>
   <!-- ########################################## Mapping ############################################3 -->
 

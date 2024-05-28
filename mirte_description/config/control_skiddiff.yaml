@@ -16,6 +16,9 @@ mobile_base_controller:
   # no need to publish a TF based on encoders alone.
   enable_odom_tf: true
   
+  base_frame_id: base_link
+  odom_frame_id: odom
+
 
   # wheel_separation_x: 0.18
   # wheel_separation_y: 0.27

@@ -1,14 +1,11 @@
 <launch>
-  <arg name="coverage_area_offset" default="-2.5 -2.5 0 0 0 0"/>
-  <arg name="coverage_area_size_x" default="10"/>
-  <arg name="coverage_area_size_y" default="10"/>
   <arg name="target_x_vel" default="0.5"/>
   <arg name="target_yaw_vel" default="0.4"/>
   <arg name="rviz" default="true"/>
 
   <!-- Setup map variables -->
-  <arg name="map_path" default="$(find mirte_description)/slam_maps"/>
-  <arg name="map_file" default="test_map.yaml"/>
+  <arg name="map_path" default="$(find mirte_2dnav)/maps"/>
+  <arg name="map_file" default="barn_map.yaml"/>
 
   <!-- Set robot name and id values -->
   <arg name="frame" default="mirtebot"/>
@@ -16,13 +13,6 @@
   
   <!-- Create a unique robot id -->
   <arg name="uid" value="$(arg frame)_$(arg id)"/>
-  
-  <!-- Setup map server -->
-  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_path)/$(arg map_file)">
-      <param name="frame_id" value="map"/>
-  </node>
-  
-  <remap from="map" to="/map"/>
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -34,8 +24,12 @@
     <arg name="debug" value="false"/>
   </include>
 
-  <!-- ########################## Global path planning startup ########################## -->
-  <!--    Computes number of agents required from map (Can set this property differently later in the file)-->
+  <!-- ########################################## Mapping ############################################3 -->
+  <!--    Computes number of agents required from map-->
+  <node pkg="map_server" name="map_server" type="map_server"
+      args="$(arg map_path)/$(arg map_file)"
+      respawn="true" clear_params="true" output="screen"/>
+  
   <include file="$(find full_coverage_path_planner)/launch/optimizer.launch"/>
 
   <!--    Compute coverage path from map, divide path for each agent -->
@@ -44,13 +38,13 @@
   <!--    Waits for number of agents and waypoints for each agent, then launches the entire stack for each agent-->
   <node pkg="full_coverage_path_planner" type="multi_robot_bringup.py" name="multi_robot_bringup" clear_params="true"
         required="true" output="screen">
-      <param name="robot_namespace" value="robot"/>
+      <param name="robot_namespace" value="mirtebot"/>
   </node>
 
   <node pkg="full_coverage_path_planner" type="map_merge.py" respawn="false" name="map_merge" clear_params="true"
         output="screen">
       <param name="robot_map_topic" value="coverage_grid"/>
-      <param name="robot_namespace" value="robot"/>
+      <param name="robot_namespace" value="mirtebot"/>
       <param name="merged_map_topic" value="coverage_grid_merged"/>
   </node>
 
@@ -58,9 +52,9 @@
         clear_params="true" output="screen">
       <param name="static_map_topic" value="map"/>
       <param name="coverage_map_topic" value="coverage_grid_merged"/>
+      <param name="robot_namespace" value="mirtebot"/>
   </node>
-
-  <!-- ##########################   Global path planning end   ########################## -->
+  <!-- ########################################## Mapping ############################################3 -->
 
 
   <!-- Load rviz config -->
